@@ -1,6 +1,6 @@
 # Capstone_team14
 
-백지수표 팀입니다~
+#백지수표 팀입니다~
 
 저희 앱 [VOCAL LAB]에 대한 readme파일입니다.
 
