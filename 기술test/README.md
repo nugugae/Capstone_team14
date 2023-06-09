@@ -7,7 +7,7 @@
 ### 입모양 인식 
 1. 얼굴 및 입 영역 검출 
     ~~~python
-    landmark_detector = dlib.shape_predictor"shape_predictor_68_face_landmarks.dat"
+    landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
     ~~~
 
 2. 입모양 특징점 추출 (landmark->49~68)
