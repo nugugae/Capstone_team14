@@ -55,4 +55,7 @@ landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat"
 위 변수를 조정하여 사용자가 원하는 대로 경로, 사이즈 등을 조정할 수 있다.
 
 
+## 실행 결과 
+
+![1](./result/example5.avi/1.jpg)
 
