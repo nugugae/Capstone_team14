@@ -20,3 +20,8 @@
 
 ### dlib_image_detect_result :
  - image폴더에 있는 이미지를 사용해 dlib_image_detect.py로 테스트 한 결과를 저장한 사진이다.
+
+
+## 실행 결과
+
+![dlib_image_detect_result](./dlib_image_detect_result.png)
