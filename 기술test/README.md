@@ -65,3 +65,7 @@ MFCC(음성의 특성 추출)를 사용하여 각 샘플의 음색과 피치를 
 
 ### [waveplot_n_mfcc] 폴더 : 
 
+*mfcc.py가 존재하는 폴더이다.
+mfcc.py를 이용하여 waveplot을 확인할 수 있다.
+
+8282_mr_removed.wav는 mr이 제거된 음성 파일이다. 이 파일을 이용하여 mfcc.py를 실행하면 8282_mr_removed.wav의 waveplot이 출력된다.
