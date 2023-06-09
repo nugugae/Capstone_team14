@@ -26,6 +26,8 @@
 
 ![dlib_image_detect_result](./dlib_image_detect_result.png)
 
+
+
 ## dlib_realtime_detect.py 실행 결과
 
-![dlib_image_detect_result](./dlib_image_detect_result.png)
+![realtime_detect](./image/realtime_detect.png)
