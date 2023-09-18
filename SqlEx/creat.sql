@@ -1,16 +1,21 @@
 CREATE TABLE users (
-    user_auto_Id INT AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(255) NOT NULL,
-    user_id VARCHAR(255) UNIQUE NOT NULL,
-    user_password VARCHAR(255) NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    login_id VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    nickname VARCHAR(255) NOT NULL,
+    role ENUM('USER', 'ADMIN') DEFAULT 'USER' NOT NULL,
+    provider VARCHAR(255),
+    provider_id VARCHAR(255),
+    UNIQUE KEY (login_id),
+    UNIQUE KEY (provider, provider_id)
 );
 
 CREATE TABLE questions (
     question_Id INT AUTO_INCREMENT PRIMARY KEY,
-    user_auto_Id INT,
+    id INT,
     question TEXT NOT NULL,
     question_date DATETIME NOT NULL,
-    FOREIGN KEY (user_auto_Id) REFERENCES users(user_auto_Id)
+    FOREIGN KEY (id) REFERENCES users(id)
 );
 
 CREATE TABLE answers (
@@ -23,8 +28,8 @@ CREATE TABLE answers (
 
 CREATE TABLE diary (
    diary_Id INT AUTO_INCREMENT PRIMARY KEY,
-   user_auto_Id INT, 
+   id INT, 
    diary_date DATE NOT NULL,
    reconstructed_text LONGTEXT,
-   FOREIGN KEY (user_auto_Id) REFERENCES users(user_auto_Id)
+   FOREIGN KEY (id) REFERENCES users(id)
 );
