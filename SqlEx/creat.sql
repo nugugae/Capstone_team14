@@ -13,7 +13,8 @@ CREATE TABLE users (
 CREATE TABLE questions (
     question_Id INT AUTO_INCREMENT PRIMARY KEY,
     id INT,
-    question TEXT NOT NULL,
+    emotion VARCHAR(255) NOT NULL,
+    question TEXT,
     question_date DATETIME NOT NULL,
     FOREIGN KEY (id) REFERENCES users(id)
 );
