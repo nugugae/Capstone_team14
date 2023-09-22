@@ -26,11 +26,3 @@ CREATE TABLE answers (
     answer TEXT NOT NULL,
     FOREIGN KEY (question_Id) REFERENCES questions(question_Id)
 );
-
-CREATE TABLE diary (
-   diary_Id INT AUTO_INCREMENT PRIMARY KEY,
-   id INT, 
-   diary_date DATE NOT NULL,
-   reconstructed_text LONGTEXT,
-   FOREIGN KEY (id) REFERENCES users(id)
-);

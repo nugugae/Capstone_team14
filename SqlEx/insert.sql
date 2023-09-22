@@ -15,7 +15,3 @@ VALUES ((SELECT question_Id FROM questions ORDER BY question_date DESC LIMIT 1),
         NOW(), 
         '오늘 하루는 정말 좋았어요.');
 
--- 일기를 추가하는 INSERT 문. 초기 생성 시 재구성된 텍스트는 비어 있음.
-INSERT INTO diary (id, diary_date)
-VALUES ((SELECT id FROM users WHERE login_id = 'team14'),
-		CURDATE());
