@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>read</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        h1 {
+            text-align: center; 
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }    
+        #chat-container {
+            width: 400px;
+            height: 600px;
+            display: flex;
+            flex-direction: column-reverse;
+            border: 1px solid #ccc;
+        }      
+        .capsule {
+            width: 390px;
+            height: 100px;
+            background-color: #e6e6e6;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="webTitle">마음 캡슐</h1>
+
+    <div id="chat-container">
+        <div class="capsule" onclick="location.href='capsule.html'">
+            <span>캡슐 번호: 1 (CLICK!)</span><br>
+            <span>날짜: 2023-09-28</span>
+        </div>
+        <div class="capsule">
+            <span>캡슐 번호: 2</span><br>
+            <span>날짜: 2023-09-31</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="write.html" id="writeLink">캡슐 쓰기</a>
+        <a href="read.html" id="readLink">캡슐 읽기</a>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #chat-container {
+            height: 600px;
+            width: 400px;
+            display: flex;
+            flex-direction: column-reverse;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .user-message {
+            background-color: #ccc;
+            color: black;
+            align-self: flex-end;
+            max-width: 70%;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+
+        .chatbot-message {
+            background-color: white;
+            color: black;
+            align-self: flex-start;
+            max-width: 70%;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="webTitle">채팅</h1>
+
+    <div id="chat-container">
+        <div class="user-message">나: 오늘은 조금 힘든 날이네요.</div>
+        <div class="chatbot-message">챗봇: 저도 그런 날이 있습니다. 힘든 날이라면 일단 자신을 위로해주고 휴식을 취하는 것도 좋은 방법입니다. 무엇보다 중요한 것은 긍정적으로 생각하고 힘을 내는 것입니다. 앞으로 더 좋은 일들이 기다리고 있을 거라는 생각으로 오늘을 잘 마무리해보세요. 화이팅!</div>
+        <div class="user-message">나: 고맙습니다.</div>
+        <div class="chatbot-message">챗봇: 아니에요, 제가 도와줄 수 있는게 있으면 언제든지 말씀해주세요. 다른 도움이 필요하신가요?</div>
+    </div>
+
+</body>
+
+</html>
