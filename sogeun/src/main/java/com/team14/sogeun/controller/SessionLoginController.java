@@ -12,9 +12,9 @@ import com.team14.sogeun.domain.dto.JoinRequest;
 import com.team14.sogeun.domain.dto.LoginRequest;
 import com.team14.sogeun.domain.entity.User;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;

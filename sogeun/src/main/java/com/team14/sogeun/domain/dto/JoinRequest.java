@@ -6,7 +6,7 @@ import lombok.Setter;
 import com.team14.sogeun.domain.UserRole;
 import com.team14.sogeun.domain.entity.User;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 @Getter
 @Setter

@@ -16,9 +16,9 @@ import com.team14.sogeun.domain.dto.JoinRequest;
 import com.team14.sogeun.domain.dto.LoginRequest;
 import com.team14.sogeun.domain.entity.User;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor

@@ -12,7 +12,7 @@ import com.team14.sogeun.domain.dto.JoinRequest;
 import com.team14.sogeun.domain.dto.LoginRequest;
 import com.team14.sogeun.domain.entity.User;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
