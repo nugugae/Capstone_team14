@@ -4,10 +4,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     nickname VARCHAR(255) NOT NULL,
     role ENUM('USER', 'ADMIN') DEFAULT 'USER' NOT NULL,
-    provider VARCHAR(255),
-    provider_id VARCHAR(255),
-    UNIQUE KEY (login_id),
-    UNIQUE KEY (provider, provider_id)
+    UNIQUE KEY (login_id)
 );
 
 CREATE TABLE questions (
