@@ -5,78 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>write</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            flex-direction: column;
-        }
-        h1 {
-            text-align: center; 
-        }
-        nav {
-            display: flex;
-            gap: 20px;
-        }    
-        .message {
-            border-top: 1px solid #ccc;
-            padding: 10px;
-            margin-top: 5px;
-            background-color: #e6e6e6;
-        }
-        #chat-container {
-            width: 400px;
-            height: 600px;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #ccc;
-        }
-        #chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-            display: flex;
-            flex-direction: column-reverse;
-        }
-        #user-input {
-            display: flex;
-            padding: 10px;
- 
-        }
-        #user-input input {
-            flex: 1;
-            padding: 10px;
-            outline: none;
-        }
-        #user-input button {
-            border: none;
-            background-color: #1e88e5;
-            color: white;
-            padding: 10px 15px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">    
+
 </head>
 <body>
 
     <h1 id="webTitle">마음 캡슐</h1>
+    <nav>
+        <a href="write.html" id="writeLink">캡슐 쓰기</a>
+        <a href="read.html" id="readLink">캡슐 읽기</a>
+    </nav>
 
     <div id="chat-container">
         <div id="chat-messages"></div>
         <div id="user-input">
-            <input type="text" placeholder="메시지를 입력하세요..." />
-            <button>전송</button>
+            <input id = "user-input-input" type="text" placeholder="메시지를 입력하세요..." />
+            <button id = "user-input-button">전송</button>
         </div>
     </div>
     <script src="write.js"></script>
-
-    <nav>
-      <a href="write.html" id="writeLink">캡슐 쓰기</a>
-      <a href="read.html" id="readLink">캡슐 읽기</a>
-    </nav>
 
 </body>
 </html>

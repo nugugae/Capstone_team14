@@ -4,57 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f2f2f2;
-        }
-
-        .signup-container {
-            background-color: white;
-            border: 1px solid #ccc;
-            padding-left : 20px;
-            padding-right : 40px;
-            padding-bottom: 30px;
-            border-radius: 5px;
-        }
-
-        .signup-container h2 {
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        .signup-button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="signup-container">
+    <div class="login-container">
         <h2>Sign up</h2>
         <form>
             <div class="form-group">
@@ -69,7 +22,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            <button class="signup-button" type="submit">Sign up</button>
+            <button class="login-button" type="submit">Sign up</button>
         </form>
     </div>
 </body>
