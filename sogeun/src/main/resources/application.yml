@@ -4,10 +4,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3308/sogeun
     username: root
-    password:
+    password: 
   # JPA 설정
   jpa:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
-

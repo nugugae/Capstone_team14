@@ -39,12 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/security-login/logout")
                 .invalidateHttpSession(true).deleteCookies("JSESSIONID")
-                // OAuth 로그인
-                .and()
-                .oauth2Login()
-                .loginPage("/security-login/login")
-                .defaultSuccessUrl("/security-login")
-                .userInfoEndpoint()
+
         ;
         http
                 .exceptionHandling()
