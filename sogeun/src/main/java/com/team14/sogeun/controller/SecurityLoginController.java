@@ -12,7 +12,7 @@ import com.team14.sogeun.domain.dto.JoinRequest;
 import com.team14.sogeun.domain.dto.LoginRequest;
 import com.team14.sogeun.domain.entity.User;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -52,7 +52,7 @@ public class SecurityLoginController {
         if(userService.checkNicknameDuplicate(joinRequest.getNickname())) {
             bindingResult.addError(new FieldError("joinRequest", "nickname", "닉네임이 중복됩니다."));
         }
-        // password와 passwordCheck가 같은지 확인
+        // password와 passwordCheck가 같은지 체크
         if(!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
             bindingResult.addError(new FieldError("joinRequest", "passwordCheck", "바밀번호가 일치하지 않습니다."));
         }

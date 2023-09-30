@@ -7,8 +7,18 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class SogeunApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SogeunApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SogeunApplication.class, args);
+    }
 
 }
+/*
+@SpringBootApplication
+public class LoginStudyApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(LoginStudyApplication.class, args);
+    }
+
+}
+* */

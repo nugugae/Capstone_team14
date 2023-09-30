@@ -1,12 +1,12 @@
 package com.team14.sogeun.domain.dto;
 
+import com.team14.sogeun.domain.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import com.team14.sogeun.domain.UserRole;
 import com.team14.sogeun.domain.entity.User;
 
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter

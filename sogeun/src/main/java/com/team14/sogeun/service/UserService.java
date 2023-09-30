@@ -1,5 +1,6 @@
 package com.team14.sogeun.service;
 
+import com.team14.sogeun.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -7,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.team14.sogeun.domain.dto.JoinRequest;
 import com.team14.sogeun.domain.dto.LoginRequest;
 import com.team14.sogeun.domain.entity.User;
-import com.team14.sogeun.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -50,7 +50,7 @@ public class UserService {
 
         User user = optionalUser.get();
 
-        // password가 다르면 null return
+        // 입력된 password가 다르면 null return
         if(!user.getPassword().equals(req.getPassword())) {
             return null;
         }
@@ -58,6 +58,12 @@ public class UserService {
         return user;
     }
 
+    /**
+     * userId(Long)를 입력받아 User을 return 해주는 기능
+     * 인증, 인가 시 사용
+     * userId가 null이거나(로그인 X) userId로 찾아온 User가 없으면 null return
+     * userId로 찾아온 User가 존재하면 User return
+     */
     public User getLoginUserById(Long userId) {
         if(userId == null) return null;
 
@@ -67,6 +73,12 @@ public class UserService {
         return optionalUser.get();
     }
 
+    /**
+     * loginId(String)를 입력받아 User을 return 해주는 기능
+     * 인증, 인가 시 사용
+     * loginId가 null이거나(로그인 X) userId로 찾아온 User가 없으면 null return
+     * loginId로 찾아온 User가 존재하면 User return
+     */
     public User getLoginUserByLoginId(String loginId) {
         if(loginId == null) return null;
 
