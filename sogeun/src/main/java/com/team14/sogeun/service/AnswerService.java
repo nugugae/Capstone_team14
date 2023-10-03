@@ -15,4 +15,12 @@ public class AnswerService {
         return answersRepository.findByUserIdAndAnswerDate(userId, LocalDate.now());
     }
 
+    public Answers saveAnswer(Answers answer) {
+        return answersRepository.save(answer);
+    }
+
+    public List<Answers> getAnswersByEmotion(String emotion) {
+        return answersRepository.findByEmotion(emotion);
+    }
+
 }
