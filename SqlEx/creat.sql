@@ -6,14 +6,13 @@ CREATE TABLE web_users (
     role ENUM('USER', 'ADMIN') DEFAULT 'USER' NOT NULL,
     UNIQUE KEY (login_id)
 );
-
 CREATE TABLE gpt_questions (
     question_Id INT AUTO_INCREMENT PRIMARY KEY,
-    id INT,
+    user_id INT,
     emotion VARCHAR(255) NOT NULL,
     question TEXT,
     question_date DATETIME NOT NULL,
-    FOREIGN KEY (id) REFERENCES web_users(id)
+    FOREIGN KEY (user_id) REFERENCES web_users(id)
 );
 
 CREATE TABLE user_answers (
