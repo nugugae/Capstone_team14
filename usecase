@@ -1,0 +1,37 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rect
+
+actor "사용자" as User
+
+database "대화 저장소" as DB
+
+
+package "캡슐 관리" {
+    User --> (캡슐 작성) : 작성
+    User --> DB : 응답 저장
+    User --> (전체 캡슐 조회) : 조회
+    (전체 캡슐 조회)--> DB: data 요청
+    DB --> (전체 캡슐 조회): 제공
+    (일주일동안의 감정 보기)-->User  : 보기
+    DB -->(일주일동안의 감정 보기) : 제공
+    User --> (캡슐 삭제) : 삭제
+    (캡슐 삭제)  --> DB :제거
+}
+
+package "GPT 프롬프트" {
+    (캡슐 작성) --> (GPT 질문) : 시작
+    (GPT 질문) --> User : 질문
+    User --> (GPT 질문) : 응답
+    (GPT 질문) --> DB : 질문 저장
+
+    
+    DB --> (일주일 동안의 캡슐 이해) : 제공
+    (일주일 동안의 캡슐 이해)-->(GPT 질문): 사전
+    (GPT 질문) --> (GPT 감정 진단) : 대화 분석
+    (GPT 감정 진단) --> DB : 결과 저장
+}
+
+
+@enduml
