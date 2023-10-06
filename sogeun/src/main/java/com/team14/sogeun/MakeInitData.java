@@ -18,21 +18,19 @@ public class MakeInitData {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
     
-    /*public MakeInitData(UserRepository userRepository, BCryptPasswordEncoder encoder) {
-		this.userRepository = userRepository;
-		this.encoder = encoder;
 
-    }*/
 
     @PostConstruct
     public void makeAdminAndUser() {
-        User admin1 = User.builder()
-                .loginId("admin1")
-                .password(encoder.encode("1234"))
-                .nickname("관리자1")
-                .role(UserRole.ADMIN)
-                .build();
-        userRepository.save(admin1);
+        if(!userRepository.existsByLoginId("admin1")) {
+            User admin1 = User.builder()
+                    .loginId("admin1")
+                    .password(encoder.encode("1234"))
+                    .nickname("관리자1")
+                    .role(UserRole.ADMIN)
+                    .build();
+            userRepository.save(admin1);
+        }
 
 
     }

@@ -12,9 +12,10 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "web_users")
 public class User {
 
+    @Getter
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -29,10 +30,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Questions> questions = new ArrayList<Questions>();
 
-    public Long getId() {
-        return this.id;
-    }
     // 관계 설정을 위한 편의 메서드
+    /*
     public void addQuestion(Questions question) {
         questions.add(question);
         question.setUser(this);
@@ -41,5 +40,5 @@ public class User {
     public void removeQuestion(Questions question) {
         questions.remove(question);
         question.setUser(null);
-    }
+    }*/
 }
