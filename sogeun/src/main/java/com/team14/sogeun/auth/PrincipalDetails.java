@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class PrincipalDetails implements UserDetails {
 
-    private User user;
+    private final User user;
 
     public PrincipalDetails(User user) {
         this.user = user;

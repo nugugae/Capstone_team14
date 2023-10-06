@@ -1,0 +1,202 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* viewport height */
+    background-color: #FFFFFF; /* white */
+    margin: 5px;
+    border: 1px solid #000000; /* black */
+}
+
+a {
+   text-decoration: none;
+ }
+
+.container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   text-align:center;
+}
+
+.logo-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    width:60%;
+    max-width :300px;
+    min-width :150px;
+
+    margin-bottom :12px ;
+ }
+.textx{
+    color: #088A08;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+ }
+.button-group .button{
+   display:block;
+   width :80%;
+   max-width :200px; /* you can change as per your requirement */
+   min-width :120px; /* you can change as per your requirement */
+   padding :10px ;
+   display: flex;
+   flex-direction: column;
+   align-items: center; /* Center items vertically */
+   justify-content: center; /* Center items horizontally */
+
+
+}
+.login-container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    border: none;
+    padding-left : 20px;
+    padding-right : 40px;
+    padding-bottom: 30px;
+
+  	border-radius :5px ;
+}
+
+.form-style {
+
+}
+
+
+
+.login-container h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #095a09;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    border-color: #077d07;
+    color: #077d07;
+}
+
+button {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #088A08;
+    border-radius: 0.6em;
+    color: #088A08;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    margin: 20px;
+    padding: 1.2em 2.8em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+
+    &:hover,
+    &:focus {
+      color: #fff;
+      outline: 0;
+    }
+}
+
+.login-button {
+    display: block;
+    margin: auto;
+    width: 90%;
+    padding: 3px;
+    border-bottom: 3px solid #077d07; /* green bottom border */
+  	margin-bottom :20px ;
+    background-color: #077d07; /* dark green when hovered */
+    color: #FFFFFF; /* white text when hovered */
+    border-width :2px ;
+    border-style :solid ;
+
+    border-radius :5px ;
+
+    border-color: #077d07;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #077d07 inset, 0 0 0 0 #077d07;
+    transition: all 150ms ease-in-out;
+
+    &:hover {
+      box-shadow: 0 0 2px 0 #088A08 inset, 0 0 5px 1px #088A08;
+      background-color :#FFFFFF ; /* white */
+	  color :#088A08 ; /* green text */
+    }
+
+}
+
+.join-button {
+    display:block;
+  	margin:auto;
+
+  	width :60% ;
+  	padding :5px ;
+
+	border:none;
+	background-color :#FFFFFF ;
+	color :#088A08 ;
+	border-bottom :3px solid #088A08 ;
+	border-radius :0px ;
+	margin-bottom :15px ;
+    transition: all 150ms ease-in-out;
+    &:hover {
+        box-shadow: 0 0 40px 40px #063e06 inset;
+        width :90% ;
+        background-color: #393b3a;
+        color: #FFFFFF;
+        padding: 3px;
+        border-width :0.5px ;
+        border-style :solid ;
+        border-color :#073707 ;
+        border-radius :5px ;
+      }
+}
+
+
+@media only screen and (max-width:600px){
+	.logo-image{
+		width :80% ;
+		min-width :100px ;
+	}
+
+	.button-group .button{
+	   width :90% ;
+	   min-width :90px ;
+
+	}
+
+}
+

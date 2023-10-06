@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <title th:text="|${pageName}|"></title>
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/index}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width:70%;"></a>
+
+        <h2 class="textx">My Page</h2>
+        <div>
+            <div th:text="|loginId : ${user.loginId}|"/>
+            <div th:text="|nickname : ${user.nickname}|"/>
+            <div th:text="|role : ${user.role}|"/>
+        </div>
+    </div>
+</body>
+</html>

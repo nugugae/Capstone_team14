@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <title th:text="|${pageName}|"></title>
+</head>
+<body>
+
+    <div class="login-container">
+        <a th:href="@{/index}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width:70%;"></a>
+
+        <div class="container" th:if="${nickname == null}">
+            <h3 class="textx">Please Login</h3>
+            <hr/>
+            <br>
+            <button class="join-button" th:onclick="|location.href='@{/{loginType}/login (loginType=${loginType})}'|">Login</button>
+            <br/>
+            <button class="join-button" th:onclick="|location.href='@{/{loginType}/join (loginType=${loginType})}'|">Join</button>
+        </div>
+        <div class="container" th:unless="${nickname == null}">
+
+            <h3 class="textx">[[${nickname}]]님 환영합니다!</h3>
+            <br>
+            <button class="join-button" th:onclick="|location.href='@{/{loginType}/info (loginType=${loginType})}'|">My Page</button> <br>
+            <div th :if= "${isAdmin} ">
+                <button class="join-button" th:onclick="|location.href='@{/{loginType}/admin (loginType=${loginType})}'|">Admin</button> <br>
+            </div >
+
+            <button class="join-button" th:onclick="|location.href='@{/{loginType}/logout (loginType=${loginType})}'|">Logout</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -19,7 +19,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
-
+    /*public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
+ 		this.userRepository = userRepository;
+ 		this.encoder = encoder;
+     	
+     }*/
     public boolean checkLoginIdDuplicate(String loginId) {
         return userRepository.existsByLoginId(loginId);
     }

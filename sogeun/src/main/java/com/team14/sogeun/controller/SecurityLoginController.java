@@ -20,7 +20,9 @@ import javax.validation.Valid;
 public class SecurityLoginController {
 
     private final UserService userService;
-
+    /*public SecurityLoginController(UserService userService) {
+ 		this.userService = userService;     	
+     }*/
     @GetMapping(value = {"", "/"})
     public String home(Model model, Authentication auth) {
 
