@@ -20,13 +20,11 @@ import javax.validation.Valid;
 public class SecurityLoginController {
 
     private final UserService userService;
-    /*public SecurityLoginController(UserService userService) {
- 		this.userService = userService;     	
-     }*/
+
     @GetMapping(value = {"", "/"})
     public String home(Model model, Authentication auth) {
 
-        if(auth != null) {
+        if (auth != null) {
             User loginUser = userService.getLoginUserByLoginId(auth.getName());
             if (loginUser != null) {
                 model.addAttribute("nickname", loginUser.getNickname());
@@ -47,19 +45,19 @@ public class SecurityLoginController {
     public String join(@Valid @ModelAttribute JoinRequest joinRequest, BindingResult bindingResult) {
 
         // loginId 중복 체크
-        if(userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
+        if (userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
             bindingResult.addError(new FieldError("joinRequest", "loginId", "로그인 아이디가 중복됩니다."));
         }
         // 닉네임 중복 체크
-        if(userService.checkNicknameDuplicate(joinRequest.getNickname())) {
+        if (userService.checkNicknameDuplicate(joinRequest.getNickname())) {
             bindingResult.addError(new FieldError("joinRequest", "nickname", "닉네임이 중복됩니다."));
         }
         // password와 passwordCheck가 같은지 체크
-        if(!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
+        if (!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
             bindingResult.addError(new FieldError("joinRequest", "passwordCheck", "바밀번호가 일치하지 않습니다."));
         }
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "join";
         }
 

@@ -1,11 +1,10 @@
 package com.team14.sogeun;
 
-import com.team14.sogeun.domain.UserRole;
+import com.team14.sogeun.domain.entity.UserRole;
 import com.team14.sogeun.domain.entity.User;
 import com.team14.sogeun.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

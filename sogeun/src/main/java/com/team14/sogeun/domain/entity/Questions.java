@@ -1,6 +1,5 @@
 package com.team14.sogeun.domain.entity;
 
-import com.team14.sogeun.domain.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,16 +15,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor//모든 필드 값을 인자로 받는 생성자 자동 생성
 @Table(name = "gpt_questions")
 public class Questions {
-    @Id
+    @Id@Column(name ="question_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long question_Id;//질문 고유 ID
 
-    @ManyToOne(fetch = FetchType.LAZY) // 다(질문) - 1(user) 관계
-    //@JoinColumn(name = "user_id")
+    @ManyToOne// 다(질문) - 1(user) 관계
+    @JoinColumn(name = "user_id")
     private User user;
 
 
-    @Column(name = "emotion", unique = true, nullable = false)
+    @Column(name = "emotion")
     private String emotion;//user의 감정 저장
 
     @Column(name = "question", columnDefinition = "TEXT", nullable = false)
@@ -39,13 +38,24 @@ public class Questions {
 
     //Answers 반환
     @Getter
-    @OneToOne(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
     private Answers answer;
 
     public void setAnswer(Answers answer) {//Questions 객체에 Answers 객체를 연결
         if (this.answer != answer) {
             this.answer = answer;
-            answer.updateQuestion(this);
+            //answer.updateQuestion(this);
         }
     }
+
+    public void setQuestion(String gptQuestion) {
+        this.question = gptQuestion;
+    }
+
+    public void setQuestionDate(LocalDateTime now) {
+        this.questionDate = now;
+    }
+    public Long getQuestionId() {  return this.question_Id;    }
+
+
 }

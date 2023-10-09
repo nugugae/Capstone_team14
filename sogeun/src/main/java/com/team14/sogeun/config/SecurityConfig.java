@@ -1,6 +1,6 @@
 package com.team14.sogeun.config;
 
-import com.team14.sogeun.domain.UserRole;
+import com.team14.sogeun.domain.entity.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,6 +1,5 @@
 package com.team14.sogeun.domain.entity;
 
-import com.team14.sogeun.domain.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,16 +17,22 @@ public class User {
     @Getter
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "login_id", unique = true, nullable = false)
     private String loginId;
+    @Column(nullable = false)
     private String password;
+
+    @Column(unique = true, nullable = false)
     private String nickname;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 255, nullable = false)
     private UserRole role;
 
     // Questions와의 관계 설정
     @Builder.Default
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Questions> questions = new ArrayList<Questions>();
 
     // 관계 설정을 위한 편의 메서드

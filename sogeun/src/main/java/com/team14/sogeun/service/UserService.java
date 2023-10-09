@@ -1,13 +1,15 @@
 package com.team14.sogeun.service;
 
 import com.team14.sogeun.repository.UserRepository;
+import com.team14.sogeun.domain.dto.JoinRequest;
+import com.team14.sogeun.domain.dto.LoginRequest;
+import com.team14.sogeun.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.team14.sogeun.domain.dto.JoinRequest;
-import com.team14.sogeun.domain.dto.LoginRequest;
-import com.team14.sogeun.domain.entity.User;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.util.Optional;
 
@@ -19,15 +21,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
-    /*public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
- 		this.userRepository = userRepository;
- 		this.encoder = encoder;
-     	
-     }*/
     public boolean checkLoginIdDuplicate(String loginId) {
         return userRepository.existsByLoginId(loginId);
     }
-
 
     public boolean checkNicknameDuplicate(String nickname) {
         return userRepository.existsByNickname(nickname);

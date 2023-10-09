@@ -5,6 +5,7 @@ spring:
     url: jdbc:mysql://localhost:3306/sogeun
     username: root
     password: Capst0ne!
+
   # JPA 설정
   jpa:
     hibernate:
