@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url(https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700);
+@import url('https://fonts.googleapis.com/css2?&family=Hi+Melody&family=Nanum+Pen+Script&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,13 +10,19 @@
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #FFFFFF;
     margin: 5px;
-    border: 1px solid #FFFFFF;
-}
+    /*
+    background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    */ 
+    background-attachment: fixed;
+    border: 0px;
+  }
 
 a {
    text-decoration: none;
@@ -26,7 +35,7 @@ a {
     justify-content: center;
     align-items: center;
 
-    background-color: white;
+
     border: none;
     padding-left : 20px;
     padding-right : 40px;
@@ -35,48 +44,78 @@ a {
   	border-radius :5px ;
 }
 
+.capsule-container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    /*border: solid 1px;*/
+    border:none;
+    padding: 20px;
+    border-color: #78c7d2;
+    border-radius: 50px 50px 50px 50px ;
+}
+
 #header{
-    display:flex;
-    justify-content:left;
-    align-items:left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; 
+    
 }
 
 
 .logo-image {
 
-    width :80px ;
-    height :80px ;
-
-    margin-right :-5px ;
+    width: 30%;
+    height: auto;
+    margin-right: 10px; 
     display: block;
     margin-left: auto;
-    margin-right: auto;
-
-    width:20%;
-    max-width :100px;
-    min-width :30px;
-
-    margin-bottom :12px ;
+    margin-right: 10px;
+    max-width: 100px;
+    min-width: 30px;
 
  }
 
- #webTitle {
 
-	color : #ac6e94;
-	font-size :2rem ;
-    margin-left: -20px;
-    margin-right: 100px;
-    text-transform: uppercase;
-    //font-family: 'Comic Sans MS', sans-serif;
+ .webTitle_chat {
+    align-self: center;
+    color: #ac6e94;
+    font-size: 5rem;
     font-family: 'Amatic SC', cursive;
+    margin-left: -10px;
+    margin-right: 100px;
+}
 
+
+.webTitle_capsule {
+    align-self: center;
+	color : #ac6e94;
+	font-size :5rem ;
+    margin-left: -10px;
+    margin-right: 100px;
+    font-family: 'Amatic SC', cursive;
+}
+.webTitle_logs {
+    align-self: center;
+	color : #ac6e94;
+	font-size :3.5rem ;
+    margin-left: -10px;
+    margin-right: 100px;
+    font-family: 'Amatic SC', cursive;
 }
 
 #chat-box {
   height : 600px ;
   width : 400px ;
-
-  border-color : #077d07 ;
+  font-family: 'Nanum Pen Script', cursive;
+  font-weight: 700;
+  font-size: large;
+  border-color : #689e68 ;
 
   padding-left :20px ;
   padding-right :20px ;
@@ -84,10 +123,11 @@ a {
 }
 
 .user-message {
-
-	background-color : #077d07 ;
+    font-family: 'Nanum Pen Script', cursive;
+    font-weight: 200;
+    font-size: 23px;
+	background-color : #689e68 ;
 	color : #FFFFFF ;
-
 	align-self:flex-end ;
 	max-width :70% ;
 	padding-left :10px ;
@@ -104,9 +144,9 @@ a {
 }
 
 .chatbot-message {
-
+    font-family: 'Hi Melody', cursive;
 	background-color:#FFFFFF;
-	color:#088A08;
+	color:#689e68;
 
 	align-self:flex-start;
 	max-width : 70%;
@@ -120,7 +160,7 @@ a {
     margin-right: 50px;
 
 	border-radius : 10px;
-	border: 2px solid #088A08;
+	border: 2px solid #689e68;
 }
 .user-input-form {
    display:flex ;
@@ -145,20 +185,20 @@ a {
 
 .user-input-form label {
     display: flex;
-    justify-content: space-between; /* 입력 필드와 버튼을 간격을 두고 배치 */
-    align-items: center; /* 수직 정렬을 중앙으로 설정 */
+    justify-content: space-between; 
+    align-items: center; 
     margin-bottom: 20px;
     margin-bottom: 5px;
-    color: #095a09;
+    color: #689e68;
 }
 
 button {
     box-sizing: border-box;
     appearance: none;
     background-color: transparent;
-    border: 2px solid #088A08;
+    border: 2px solid #689e68;
     border-radius: 0.6em;
-    color: #088A08;
+    color: #689e68;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 400;
@@ -168,7 +208,6 @@ button {
     text-decoration: none;
     text-align: center;
     text-transform: uppercase;
-    //font-family: 'Montserrat', sans-serif;
     font-family: 'Amatic SC', cursive;
     font-weight: 700;
 
@@ -191,9 +230,9 @@ button {
     vertical-align:middle;
 
     &:hover {
-        box-shadow: 0 0 2px 0 #088A08 inset, 0 0 5px 1px #088A08;
+        box-shadow: 0 0 2px 0 #689e68 inset, 0 0 5px 1px #689e68;
         background-color :#FFFFFF ; /* white */
-        color :#088A08 ; /* green text */
+        color :#689e68 ; /* green text */
       }
 
 }
@@ -204,5 +243,64 @@ button {
   margin: 0px;
 
 }
+
+.capsule {
+    font-family: 'Josefin Slab', serif;
+    font-weight: 900;
+	background-color:#FFFFFF;
+	color:#689e68;
+
+	align-self:flex-start;
+	max-width : 100%;
+	padding:10px;
+    margin-top  : 3px ;
+	margin-bottom  : 3px ;
+
+
+	border-radius : 10px;
+	border: 2px solid #689e68;
+}
+
+.btn {
+    border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Amatic SC', cursive;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.3rem;
+    background-color: #584737;
+    padding: 17px 60px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+  }
+  
+  .btn span {
+    position: relative; 
+    z-index: 1;
+  }
+  
+  .btn:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 490%;
+    width: 140%;
+    background: #78c7d2;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  }
+  
+  .btn:hover:after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  }
 
 

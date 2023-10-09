@@ -9,7 +9,7 @@
 <body>
 
     <div class="login-container">
-        <a th:href="@{/index}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width:70%;"></a>
+        <a th:href="@{/security-login}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width:70%;"></a>
 
         <div class="container" th:if="${nickname == null}">
             <p class="textx2">Please Login</p>
@@ -21,7 +21,7 @@
         </div>
         <div class="container" th:unless="${nickname == null}">
 
-            <p class="textx2">Welcome!</p>
+            <p class="textx">Welcome!</p>
             <br><br>
 
             <button class="btn" th:onclick="|location.href='@{/{loginType}/info (loginType=${loginType})}'|">

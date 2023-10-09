@@ -10,8 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* viewport height */
-    background-color: #FFFFFF; /* white */
+    height: 100vh; 
+    background-color: #FFFFFF; 
     margin: 5px;
     border: 1px solid #FFFFFF;
 }
@@ -76,10 +76,6 @@ a {
   	border-radius :5px ;
 }
 
-.form-style {
-
-}
-
 
 
 .login-container h2 {
@@ -93,7 +89,7 @@ a {
 .form-group label {
     display: block;
     margin-bottom: 5px;
-    color: #095a09;
+    color: #689e68;
 }
 
 .form-group input {
@@ -101,17 +97,17 @@ a {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    border-color: #077d07;
-    color: #077d07;
+    border-color: #689e68;
+    color: #689e68;
 }
 
 button {
     box-sizing: border-box;
     appearance: none;
     background-color: transparent;
-    border: 2px solid #088A08;
+    border: 2px solid #689e68;
     border-radius: 0.6em;
-    color: #088A08;
+    color: #689e68;
     cursor: pointer;
     display: flex;
     align-self: center;
@@ -123,7 +119,6 @@ button {
     text-decoration: none;
     text-align: center;
     text-transform: uppercase;
-    //font-family: 'Montserrat', sans-serif;
    	font-family: 'Amatic SC', cursive;
     font-weight: 700;
 
@@ -139,24 +134,24 @@ button {
     margin: auto;
     width: 100%;
     padding: 3px;
-    border-bottom: 3px solid #077d07; /* green bottom border */
+    border-bottom: 3px solid #689e68; /* green bottom border */
   	margin-bottom :20px ;
-    background-color: #077d07; /* dark green when hovered */
+    background-color: #689e68; /* dark green when hovered */
     color: #FFFFFF; /* white text when hovered */
     border-width :2px ;
     border-style :solid ;
 
     border-radius :5px ;
 
-    border-color: #077d07;
+    border-color: #689e68;
     color: #fff;
-    box-shadow: 0 0 40px 40px #077d07 inset, 0 0 0 0 #077d07;
+    box-shadow: 0 0 40px 40px #689e68 inset, 0 0 0 0 #689e68;
     transition: all 150ms ease-in-out;
 
     &:hover {
-      box-shadow: 0 0 2px 0 #088A08 inset, 0 0 5px 1px #088A08;
+      box-shadow: 0 0 2px 0 #689e68 inset, 0 0 5px 1px #689e68;
       background-color :#FFFFFF ; /* white */
-	  color :#088A08 ; /* green text */
+	  color :#689e68 ; /* green text */
     }
 
 }
@@ -170,8 +165,8 @@ button {
 
 	border:none;
 	background-color :#FFFFFF ;
-	color :#088A08 ;
-	border-bottom :3px solid #088A08 ;
+	color :#689e68 ;
+	border-bottom :3px solid #689e68 ;
 	border-radius :0px ;
 	margin-bottom :15px ;
     transition: all 150ms ease-in-out;
