@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
     <title th:text="|${pageName}|"></title>
 </head>
 <body>
@@ -12,19 +12,21 @@
         <a th:href="@{/index}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width:70%;"></a>
 
         <div class="container" th:if="${nickname == null}">
-            <h3 class="textx">Please Login</h3>
-            <hr/>
-            <br>
+            <p class="textx2">Please Login</p>
+
+            <br><br>
             <button class="join-button" th:onclick="|location.href='@{/{loginType}/login (loginType=${loginType})}'|">Login</button>
             <br/>
             <button class="join-button" th:onclick="|location.href='@{/{loginType}/join (loginType=${loginType})}'|">Join</button>
         </div>
         <div class="container" th:unless="${nickname == null}">
 
-            <h3 class="textx">[[${nickname}]]님 환영합니다!</h3>
-            <br>
-            <button class="join-button" th:onclick="|location.href='@{/{loginType}/info (loginType=${loginType})}'|">My Page</button> <br>
-            <button class="join-button" th:onclick="|location.href='@{/{loginType}/logout (loginType=${loginType})}'|">Logout</button>
+            <p class="textx2">Welcome!</p>
+            <br><br>
+
+            <button class="btn" th:onclick="|location.href='@{/{loginType}/info (loginType=${loginType})}'|">
+                <span>My Page</span>
+            </button>
         </div>
     </div>
 </body>

@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 * {
     box-sizing: border-box;
     margin: 0;
@@ -63,11 +63,12 @@ a {
  #webTitle {
 
 	color : #ac6e94;
-	font-size :50px ;
+	font-size :2rem ;
     margin-left: -20px;
     margin-right: 100px;
     text-transform: uppercase;
-    font-family: 'Comic Sans MS', sans-serif;
+    //font-family: 'Comic Sans MS', sans-serif;
+    font-family: 'Amatic SC', cursive;
 
 }
 
@@ -167,7 +168,8 @@ button {
     text-decoration: none;
     text-align: center;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
+    //font-family: 'Montserrat', sans-serif;
+    font-family: 'Amatic SC', cursive;
     font-weight: 700;
 
     &:hover,
@@ -194,9 +196,7 @@ button {
         color :#088A08 ; /* green text */
       }
 
-
 }
-
 
 .submit-button img {
   width: 20px;

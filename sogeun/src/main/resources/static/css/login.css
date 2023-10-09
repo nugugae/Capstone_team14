@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 * {
     box-sizing: border-box;
     margin: 0;
@@ -109,7 +110,7 @@ button {
     cursor: pointer;
     display: flex;
     align-self: center;
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: 400;
     line-height: 1;
     margin: 20px;
@@ -117,7 +118,7 @@ button {
     text-decoration: none;
     text-align: center;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Amatic SC', cursive;
     font-weight: 700;
   
     &:hover,
@@ -150,6 +151,8 @@ button {
       box-shadow: 0 0 2px 0 #088A08 inset, 0 0 5px 1px #088A08;
       background-color :#FFFFFF ; /* white */
 	  color :#088A08 ; /* green text */
+	  padding-top: 2px;
+      padding-bottom: 2px;
     }
     
 }
