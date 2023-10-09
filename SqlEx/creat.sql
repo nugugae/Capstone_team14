@@ -1,17 +1,16 @@
 CREATE TABLE web_users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    login_id VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    nickname VARCHAR(255) NOT NULL,
-    role ENUM('USER', 'ADMIN') DEFAULT 'USER' NOT NULL,
-    UNIQUE KEY (login_id)
+    login_id VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(512) NOT NULL,
+    nickname VARCHAR(100) NOT NULL UNIQUE,
+    role VARCHAR(255) DEFAULT 'USER'
 );
 CREATE TABLE gpt_questions (
     question_Id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    emotion VARCHAR(255) NOT NULL,
-    question TEXT,
-    question_date DATETIME NOT NULL,
+    emotion VARCHAR(100) NOT NULL,
+    question TEXT NOT NULL,
+    question_date DATETIME NOT NULL
     FOREIGN KEY (user_id) REFERENCES web_users(id)
 );
 
