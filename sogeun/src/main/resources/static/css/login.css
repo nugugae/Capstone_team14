@@ -11,7 +11,7 @@ body {
     height: 100vh; /* viewport height */
     background-color: #FFFFFF; /* white */
     margin: 5px;
-    border: 1px solid #000000; /* black */
+    border: 1px solid #FFFFFF;
 }
 
 a {
@@ -72,10 +72,6 @@ a {
     padding-bottom: 30px;
 
   	border-radius :5px ;
-}
-
-.form-style {
-
 }
 
 

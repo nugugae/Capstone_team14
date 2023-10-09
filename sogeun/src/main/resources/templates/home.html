@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/user.css}">
     <title th:text="|${pageName}|"></title>
 </head>
@@ -23,10 +24,6 @@
             <h3 class="textx">[[${nickname}]]님 환영합니다!</h3>
             <br>
             <button class="join-button" th:onclick="|location.href='@{/{loginType}/info (loginType=${loginType})}'|">My Page</button> <br>
-            <div th :if= "${isAdmin} ">
-                <button class="join-button" th:onclick="|location.href='@{/{loginType}/admin (loginType=${loginType})}'|">Admin</button> <br>
-            </div >
-
             <button class="join-button" th:onclick="|location.href='@{/{loginType}/logout (loginType=${loginType})}'|">Logout</button>
         </div>
     </div>
