@@ -10,7 +10,7 @@ CREATE TABLE gpt_questions (
     user_id INT,
     emotion VARCHAR(100) NOT NULL,
     question TEXT NOT NULL,
-    question_date DATETIME NOT NULL
+    question_date DATETIME NOT NULL,
     FOREIGN KEY (user_id) REFERENCES web_users(id)
 );
 
