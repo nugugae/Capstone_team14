@@ -23,7 +23,7 @@ public class QnAController {
     private final QuestionService questionService;
     private final AnswerService answerService;
     private final OpenCapsuleService opencapsule;
-    @PostMapping("/submit")
+    @PostMapping("/chat")
     public ResponseEntity<Map<String, String>> submitAnswer(@RequestBody Map<String, String> payload) {
         String userAnswertxt = payload.get("answer");
         String gptQuestiontxt = payload.get("question");
@@ -49,7 +49,7 @@ public class QnAController {
         return ResponseEntity.ok(response);
 
     }
-    @GetMapping("/open")//캡슐 열기
+    @GetMapping("/capsule")//캡슐 열기
     public ResponseEntity<Map<Questions, Answers>> getQnAOlderThanAWeek(@RequestParam Long userId) {
         Map<Questions, Answers> qna = opencapsule.getQnAOlderThanAWeek(userId);
         return ResponseEntity.ok(qna);
