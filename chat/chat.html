@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="chat.css">
+    <title>chat</title>
+</head>
+
+<body>
+    <div id="header">
+        <img src="logo.png" alt="Logo Image" class="logo-image" >
+        <p class="webTitle_chat">Chat</p>
+    </div>
+
+    <div class="chat-container" id="chat-box">
+        <div id="chat-log">
+            <div class="chatbot-message">오늘은 어떤 하루를 보내셨나요?</div>
+        </div>
+
+        <form id="user-input-form">
+            <input type="text" id="user-input" placeholder="Type your message here..." required />
+            <button class="submit-button" id="submit-button" type="submit">
+                <img src="sendIcon.png" alt="Submit Image" class="Submit-image" />
+            </button>
+        </form>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+</html>
