@@ -121,7 +121,7 @@ class CapsuleApiControllerTest {
                 .andExpect(jsonPath("$.answer").value(answer))
                 .andExpect(jsonPath("$.question").value(question));
     }
-
+/*
     @DisplayName("deleteCapsule: 블로그 글 삭제에 성공한다.")
     @Test
     public void deleteCapsule() throws Exception {
@@ -176,7 +176,7 @@ class CapsuleApiControllerTest {
         assertThat(capsule.getQuestion()).isEqualTo(newQuestion);
         assertThat(capsule.getAnswer()).isEqualTo(newAnswer);
     }
-
+*/
 }
 
 

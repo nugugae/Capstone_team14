@@ -34,6 +34,8 @@ public class WebSecurityConfig {//page210
         return http
                 .authorizeRequests()
                 .requestMatchers("/login", "/signup", "/user").permitAll()
+                .requestMatchers( "/css/**", "/js/**", "/images/**", "/asset/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

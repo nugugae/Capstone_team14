@@ -1,34 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>캡슐</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <title th:text="|${pageName}|"></title>
 </head>
 <body>
-    <div class="p-5 mb-5 text-center</> bg-light">
-        <h1 class="mb-3">My OPEN Capsule</h1>
-        <h4 class="mb-3">캡슐보관에 오신 것을 환영합니다.</h4>
+<div class="chat-container">
+    <div id="header">
+        <a th:href="@{/capsules}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" ></a>
+        <p class="webTitle_logs">Memorials</p>
     </div>
 
-    <div class="container">
-        <button type="button" id="create-btn"
-                th:onclick="|location.href='@{/capsule/chat}'|"
-                class="btn btn-secondary btn-sm mb-3">새로운 캡슐 생성</button>
-        <div class="row-6" th:each="item : ${capsules}">
-            <div class="card">
-                <div class="card-header" th:text="${item.qnaid}">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${item.question}"></h5>
-                    <p class="card-text" th:text="${item.answer}"></p>
-                    <a th:href="@{/capsules/{id}(id=${item.qnaid})}" class="btn btn-primary">보러가기</a>
-                </div>
-            </div>
-            <br>
+    <br>
+    <div class="capsule-container">
+
+        <div class='capsule blocked-capsule' >
+            <span>No.2</span><br>
+            <span>DATE : 2023-09-28</span>
+        </div>
+        <div class="capsule" th:onclick="|location.href='@{/{loginType}/[date맞는 캡슐로 이동] (loginType=${loginType})}'|">
+            <span>No.1</span><br>
+            <span>DATE : 2023-09-31</span>
         </div>
     </div>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
+    <br><br>
 
-    <script src="/js/Capsule.js"></script>
+    <nav>
+        <a th:href="@{/capsule/chat}" >
+            <button class="btn">
+                <span>Go To Chat</span>
+            </button>
+        </a>
+
+    </nav>
+</div>
 </body>
+</html>
