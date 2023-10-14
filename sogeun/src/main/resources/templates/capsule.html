@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <title th:text="|${pageName}|"></title>
+</head>
+<body>
+<div class="chat-container">
+    <div id="header">
+        <a th:href="@{/security-login}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" ></a>
+        <p class="webTitle_logs">Memorials</p>
+    </div>
+
+    <br>
+    <div class="capsule-container">
+
+        <div class='capsule blocked-capsule' >
+            <span>No.2</span><br>
+            <span>DATE : 2023-09-28</span>
+        </div>
+        <div class="capsule" th:onclick="|location.href='@{/{loginType}/[date맞는 캡슐로 이동] (loginType=${loginType})}'|">
+            <span>No.1</span><br>
+            <span>DATE : 2023-09-31</span>
+        </div>
+    </div>
+    <br><br>
+
+    <nav>
+        <a th:href="@{/security-login/chat}" >
+            <button class="btn">
+                <span>Go To Chat</span>
+            </button>
+        </a>
+
+    </nav>
+</div>
+</body>
+</html>
