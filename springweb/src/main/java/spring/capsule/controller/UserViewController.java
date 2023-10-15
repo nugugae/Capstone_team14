@@ -63,9 +63,10 @@ public class UserViewController {//214 로그인,회원가입 경로 접근 시 
 
 
 
-
-    @GetMapping("/index")
-    public String index(){ return "index";}
+    @GetMapping({"/", ""})
+    public String index() {
+        return "index";
+    }
     @GetMapping("/login")
     public String login() {  return "login";  }
 
