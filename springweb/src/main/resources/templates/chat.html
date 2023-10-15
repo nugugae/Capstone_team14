@@ -10,9 +10,20 @@
 
   <div id="chat-box">
     <div id="header">
-      <a th:href="@{/capsule/chat}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" ></a>
+      <a th:href="@{/home}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" ></a>
       <p class ="webTitle_chat">Chat</p>
     </div>
+    <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+
+    <!--으로 캡슐 생성 가능
+        <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+
+        <header class="mb-4">
+          <input type="text" class="form-control" placeholder="질문" id="question" th:value="${capsule.question}">
+        </header>
+        <section class="mb-5">
+          <textarea class="form-control h-25" rows="10" placeholder="답변" id="answer" th:text="${capsule.answer}"></textarea>
+    -->
     <br>
     <div class="user-message">
       나 : 오늘은 조금 힘든 날이네요.
@@ -34,7 +45,8 @@
 
     <form id='user-input-form'>
       <input type='text' id='user-input' placeholder='Type your message here...' required />
-      <button class= "submit-button" type='submit'>
+
+      <button th:if="${capsule.qnaid} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">
         <img src="sendIcon.png" alt='Submit Image' class="Submit-image"/>
       </button>
     </form>

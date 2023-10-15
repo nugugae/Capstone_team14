@@ -40,7 +40,7 @@ public class WebSecurityConfig {//page210
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/capsules")
+                .defaultSuccessUrl("/home",true)
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login")

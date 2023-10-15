@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <title th:text="|${pageName}|"></title>
+    <style>
+        .logout-image {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/home}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width:70%;"></a>
+
+    <p class="textx2">My Page</p><br><br>
+    <div>
+        <div th:text="|loginId : ${user.email}|"/>
+        <div th:text="|nickname : ${user.nickname}|"/>
+        <div th:text="|LEVEL : ${user.role}|"/><br><br>
+        <button class="logout-button" th:onclick="|location.href='@{/logout}'|">
+            <img th:src="@{/asset/logout.png}" alt='Logout Image' class="logout-image"/>
+        </button>
+
+    </div>
+</div>
+</body>
+</html>

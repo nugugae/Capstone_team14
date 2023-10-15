@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <title th:text="|${pageName}|"></title>
+</head>
+<body>
+
+<div class="login-container">
+    <a th:href="@{/index}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width:70%;"></a>
+
+    <div class="container" th:if="${user.nickname  == null}">
+        <h3 class="textx">Please Login</h3>
+        <hr/>
+        <br>
+        <button type="button" class="join-button" onclick="location.href='/login'">Login</button>
+        <br/>
+        <button type="button" class="join-button" onclick="location.href='/signup'">Join</button> <br/><br/>
+    </div>
+    <div class="container" th:unless="${user.nickname == null}">
+        <h3 class="textx">[[${user.nickname}]]님 환영합니다!</h3>
+        <br>
+        <button class="btn" th:onclick="|location.href='@{/info}'|">
+            <span>My Page</span>
+        </button>
+        <br>
+        <button class="btn" th:onclick="|location.href='@{/capsule/chat}'|">
+            <span>Go To Chat</span>
+        </button>
+        <br>
+        <button class="btn" th:onclick="|location.href='@{/capsules}'|">
+            <span>Capsule</span>
+        </button>
+    </div>
+</div>
+</body>
+</html>

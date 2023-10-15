@@ -8,6 +8,9 @@ import spring.capsule.domain.UserRole;
 import spring.capsule.dto.AddUserRequest;
 import spring.capsule.repository.UserRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {//213
@@ -23,9 +26,19 @@ public class UserService {//213
                 .role(UserRole.USER)
                 .build()).getId();
     }
+
     //jwt 토큰서비스 추가 246
     public User findById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("No user found with email: " + email));
+    }
+    public List<User> findAll(){return  userRepository.findAll();}
+    //기존 - >추가
+    // 사용자의 로그인 ID로 사용자를 찾는 메서드
+
+
 }
