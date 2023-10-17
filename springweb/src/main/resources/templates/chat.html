@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/chat.css}">
+  <title th:text="|${pageName}|"></title>
+</head>
+<body>
+  <div class="chat-container">
+      <div id="chat-box">
+          <a th:href="@{/home}">
+          <div id="header">
+              <img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width: 30%;"> 
+            <p class ="webTitle_chat">Chat</p>
+          
+          </div>
+          </a>
+          <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+              <!--으로 캡슐 생성 가능
+              <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+
+              <header class="mb-4">
+              <input type="text" class="form-control" placeholder="질문" id="question" th:value="${capsule.question}">
+              </header>
+              <section class="mb-5">
+              <textarea class="form-control h-25" rows="10" placeholder="답변" id="answer" th:text="${capsule.answer}"></textarea>
+          -->
+        <br>
+
+          <div class="chat-log" id="resultContainer">
+              <div class="chatbot-message">
+                  오늘은 어떤 하루를 보내셨나요?
+              </div>
+          
+              <!-- <div class="user-message">
+                  
+              </div> -->
+          </div>
+
+
+          <form id='user-input-form'>
+              <input type='text' id='user-input' placeholder='Type your message here...' required />
+
+              <button th:if="${capsule.qnaid} == null" type="submit" class= "submit-button">
+                  <img th:src="@{/asset/sendIcon.png}" alt='Submit Image' class="Submit-image"/>
+              </button>
+          </form>
+      </div>
+  </div>
+
+    <script src="chat.js"> 
+
+              
+    </script>
+</body>
+</html>

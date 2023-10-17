@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/index.css}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title th:text="|${pageName}|"></title>
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image"></a>
+    <div class="button-group">
+        <a th:href="@{/login}"><button class="button login-button">Login</button></a>
+        <a th:href="@{/signup}"><button class="button join-button">Join</button></a>
+    </div>
+</div>
+</body>
+</html>
