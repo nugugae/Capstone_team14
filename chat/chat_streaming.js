@@ -1,4 +1,4 @@
-const apiKey = "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";
+const apiKey = "apiKey";
 const apiUrl = 'https://api.openai.com/v1/chat/completions'; 
 
 const userInput = document.getElementById("user-input");
@@ -63,12 +63,16 @@ const generate = async () => {
 
         const chunk = decoder.decode(value);
         const lines = chunk.split("\n");
+        //오류 확인용 코드
+        //console.log(lines); 
+
         const parsedLines = lines
             .map((line) => line.replace(/^data: /, "").trim()) 
             .filter((line) => line !== "" && line !== "[DONE]") 
             .map((line) => JSON.parse(line)); 
 
         for (const parsedLine of parsedLines) {
+
             const { choices } = parsedLine;
             const { delta } = choices[0];
             const { content } = delta;

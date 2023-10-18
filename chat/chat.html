@@ -8,24 +8,33 @@
 </head>
 
 <body>
-    <div id="header">
-        <img src="logo.png" alt="Logo Image" class="logo-image" >
-        <p class="webTitle_chat">Chat</p>
-    </div>
+    <div class="chat-container">
+        <div id="chat-box">
+            <a href="capsule2.html">
+            <div id="header">
+                    <img src="logo.png" alt="Logo Image" class="logo-image" style="width: 30%;">
+              <p class ="webTitle_chat">Chat</p>
+            
+            </div>
+            </a>
+          <br>
 
-    <div class="chat-container" id="chat-box">
-        <div id="chat-log">
-            <div class="chatbot-message">오늘은 어떤 하루를 보내셨나요?</div>
+            <div class="chat-log">
+                <div class="chatbot-message">
+                    오늘은 어떤 하루를 보내셨나요?
+                </div>
+            </div>
+
+            <form id='user-input-form'>
+                <input type='text' id='user-input' placeholder='Type your message here...' required />
+                <button class= "submit-button" type='submit'>
+                    <img src="sendIcon.png" alt='Submit Image' class="Submit-image"/>
+                </button>
+            </form>
         </div>
-
-        <form id="user-input-form">
-            <input type="text" id="user-input" placeholder="Type your message here..." required />
-            <button class="submit-button" id="submit-button" type="submit">
-                <img src="sendIcon.png" alt="Submit Image" class="Submit-image" />
-            </button>
-        </form>
     </div>
 
-    <script src="chat.js"></script>
+    <script src="chat_streaming.js"></script>
+
 </body>
 </html>
