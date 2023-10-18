@@ -1,49 +1,19 @@
-
-
-/*
-const apiKey = "api-key";
-
-const userInput = document.getElementById("user-input");
-const sendButton = document.querySelector(".submit-button");
-const chatLog = document.querySelector(".chat-log");
-
-sendButton.addEventListener('click', () => {
-    const userMessage = userInput.value;
-    chatLog.innerHTML += `<div class="user-message">${userMessage}</div>`;
-    userInput.value = "";
-
-    // GPT-3 API 호출
-    fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            "model": "gpt-3.5-turbo",
-            "messages": [
-                {"role": "system", "content": "You have to provide mental care to user.answer in 50 words"},
-                {"role": "user", "content": userMessage}
-            ]
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        const botMessage = data.choices[0].message.content;
-        chatLog.innerHTML += `<div class="chatbot-message">${botMessage}</div>`;
-    });
-
-});
-
-*/
-
 const API_URL = 'https://api.openai.com/v1/chat/completions';
-const API_KEY = "api-key";
+const API_KEY = "API_KEY";
 
 const userInput = document.getElementById("user-input");
 const sendButton = document.querySelector(".submit-button");
 const chatLog = document.querySelector(".chat-log");
 const resultContainer = document.getElementById('resultContainer');
+
+// 사용자가 메시지를 입력할 때마다 버튼을 활성화
+userInput.addEventListener('input', () => {
+    if (userInput.value.trim() !== '') {
+        sendButton.disabled = false;
+    } else {
+        sendButton.disabled = true;
+    }
+});
 
 sendButton.addEventListener('click', () => {
 
@@ -81,14 +51,14 @@ sendButton.addEventListener('click', () => {
     .then(data => {
         const botMessage = data.choices[0].message.content;
 
-        // Remove the "Generating..." message from chatLog
+        // "Generating..." message 삭제
         const chatbotMessages = chatLog.querySelectorAll('.chatbot-message');
         chatbotMessages[chatbotMessages.length - 1].remove();
 
         chatLog.innerHTML += `<div class="chatbot-message">${botMessage}</div>`;
+
+        // Scroll
+        chatLog.scrollTop = chatLog.scrollHeight;
     });
 
 });
-
-
-        

@@ -122,6 +122,33 @@ a {
 
 }
 
+#chat-log {
+    /* height: 700px; */
+    height: calc(100% - 120px); /* Adjust this value as needed */
+
+    overflow-y:auto;
+    flex-direction: column-reverse;
+    padding: 10px;
+}
+
+.chat-log::-webkit-scrollbar {
+    width: 6.5px; 
+}
+
+.chat-log::-webkit-scrollbar-track {
+    background: #f1f1f1; /* 스크롤 트랙의 배경색 */
+    border-radius: 15px;
+}
+
+.chat-log::-webkit-scrollbar-thumb {
+    background: #d8c695; /* 스크롤바 색상 */
+    border-radius: 15px;
+}
+
+.chat-log::-webkit-scrollbar-thumb:hover {
+    background: #a59772; /* 스크롤바에 마우스 오버 시 색상 */
+}
+
 .user-message {
     font-family: 'Nanum Pen Script', cursive;
     font-weight: 200;
@@ -162,6 +189,21 @@ a {
 	border-radius : 10px;
 	border: 2px solid #689e68;
 }
+
+/* .user-input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; 
+    width : 400px ;
+    border-radius: 10px;
+    vertical-align: middle;
+
+    position: fixed;
+    bottom: 10px; 
+    padding: 10px; 
+} */
+
 .user-input-form {
    display:flex ;
    justify-content :space-between ;
@@ -170,6 +212,8 @@ a {
    width :100% ;
    border-radius : 10px;
    vertical-align:middle;
+   overflow-y:auto;
+   flex-direction: column-reverse;
 
 }
 
@@ -178,10 +222,36 @@ a {
    padding :10px ;
    border-radius : 10px;
    vertical-align:middle;
-   min-height: 40px;
    width :70% ;
 
+
+   box-sizing: border-box;
+   resize:none; /* prevent user from resizing the textarea */
+   
+   height:auto; 
+   min-height:40px;
+   max-height:100px; 
+
+   overflow-y: auto; /* 내용이 넘칠 경우 스크롤바 추가 */
+
 }
+
+/* .user-input::-webkit-scrollbar {
+    width: 10px;
+}
+
+.user-input::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.user-input::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.user-input::-webkit-scrollbar-thumb:hover {
+    background: #555;
+} */
+
 
 .user-input-form label {
     display: flex;
