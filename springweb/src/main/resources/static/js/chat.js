@@ -29,6 +29,8 @@ sendButton.addEventListener('click', () => {
     
     sendButton.disabled = true;
 
+    userInput.disabled = true;
+
     // "Generating..." message 
     chatLog.innerHTML += '<div class="chatbot-message">Generating...</div>';
 
@@ -59,6 +61,8 @@ sendButton.addEventListener('click', () => {
 
         // Scroll
         chatLog.scrollTop = chatLog.scrollHeight;
+
+        userInput.disabled = false;
     });
 
 });
