@@ -330,6 +330,16 @@ button {
 
 	border-radius : 10px;
 	border: 2px solid #689e68;
+
+    &:hover {
+        box-shadow: 0 0 2px 0 #155e27 inset, 0 0 5px 1px #155e27;
+        color: #155e27; 
+        background-color: #FFFFFF; 
+        border-width :2px ;
+        border-style :solid ;
+        border-color :#088A08 ; 
+        border-radius :5px ;
+       }
 }
 .blocked-capsule {
     pointer-events: none; /* Disables all click events */

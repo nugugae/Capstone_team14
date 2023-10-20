@@ -59,6 +59,17 @@ a {
     font-size : 3rem;
     font-weight: 700;
  }
+
+ .user_info{
+
+  color: #5a885a;
+  text-decoration: none;
+  text-align: center;
+
+  font-family: 'Amatic SC', cursive;
+  font-size : 1.4rem;
+  font-weight: 620;
+}
  .textx{
     color: #689e68;
     text-decoration: none;
@@ -312,8 +323,8 @@ button {
 }
 
 .btn3:hover:after {
-  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-  transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  -webkit-transform: translateX(-15%) translateY(-25%) rotate(45deg);
+  transform: translateX(-15%) translateY(-25%) rotate(45deg);
 }
 
 
