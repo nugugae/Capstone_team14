@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+    <title th:text="|${pageName}|"></title>
+</head>
+<body>
+<div class="chat-container">
+    <a th:href="@{/home}">
+    <div id="header">
+        <img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" >
+        <p class="webTitle_logs">Memorials</p>
+    </div>
+    </a>
+
+    <br>
+    <div class="capsule-container">
+        <!-- <div class="row-6" th:each="item : ${capsules}">
+       
+        <div class="row-6" th:each="item : ${capsules}"> 캡슐 가져오는
+        <a th:href="@{/capsules/{id}(id=${item.qnaid})}" class="btn btn-primary">보러가기</a>
+         -->
+
+         <div class='capsule blocked-capsule'>
+                
+            <span>No.2</span><br>
+            <span>DATE : 2023-10-20</span>
+        </div>
+        <div class="capsule" th:onclick="|location.href='@{/capsules/1}'|">
+            <span>No.1</span><br>
+            <span>DATE : 2023-09-31</span>
+        </div>
+        
+    </div>
+    <br><br>
+
+    <nav>
+        <a th:href="@{/capsule/chat}" >
+            <button class="btn">
+                <span>Go To Chat</span>
+            </button>
+        </a>
+
+    </nav>
+</div>
+</body>
+</html>
