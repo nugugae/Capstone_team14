@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,8 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* viewport height */
-    background-color: #FFFFFF; /* white */
+    height: 100vh; 
+    background-color: #FFFFFF; 
     margin: 5px;
     border: 1px solid #FFFFFF;
 }
@@ -31,15 +32,15 @@ a {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    
+
     width:60%;
-    max-width :300px; 
-    min-width :150px; 
-    
+    max-width :300px;
+    min-width :150px;
+
     margin-bottom :12px ;
  }
-.loginAgain{
-    color: #689e68;
+.textx{
+    color: #088A08;
     text-decoration: none;
     text-align: center;
     text-transform: uppercase;
@@ -48,24 +49,24 @@ a {
  }
 .button-group .button{
    display:block;
-   width :80%;
-   max-width :200px; /* you can change as per your requirement */
-   min-width :120px; /* you can change as per your requirement */
+   width :100%;
+   max-width :200px;
+   min-width :120px;
    padding :10px ;
    display: flex;
    flex-direction: column;
-   align-items: center; /* Center items vertically */
-   justify-content: center; /* Center items horizontally */
-   
-   
+   align-items: center;
+   justify-content: center;
+
+
 }
 .login-container {
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
-    
+    align-items: center;
+
     background-color: white;
     border: none;
     padding-left : 20px;
@@ -118,9 +119,9 @@ button {
     text-decoration: none;
     text-align: center;
     text-transform: uppercase;
-    font-family: 'Amatic SC', cursive;
+   	font-family: 'Amatic SC', cursive;
     font-weight: 700;
-  
+
     &:hover,
     &:focus {
       color: #fff;
@@ -131,7 +132,7 @@ button {
 .login-button {
     display: block;
     margin: auto;
-    width: 90%;
+    width: 100%;
     padding: 3px;
     border-bottom: 3px solid #689e68; /* green bottom border */
   	margin-bottom :20px ;
@@ -140,47 +141,45 @@ button {
     border-width :2px ;
     border-style :solid ;
 
-    border-radius :5px ; 
+    border-radius :5px ;
 
     border-color: #689e68;
     color: #fff;
     box-shadow: 0 0 40px 40px #689e68 inset, 0 0 0 0 #689e68;
     transition: all 150ms ease-in-out;
-    
+
     &:hover {
-      box-shadow: 0 0 2px 0 #088A08 inset, 0 0 5px 1px #088A08;
+      box-shadow: 0 0 2px 0 #689e68 inset, 0 0 5px 1px #689e68;
       background-color :#FFFFFF ; /* white */
-	  color :#088A08 ; /* green text */
-	  padding-top: 2px;
-      padding-bottom: 2px;
+	  color :#689e68 ; /* green text */
     }
-    
+
 }
 
 .join-button {
     display:block;
   	margin:auto;
 
-  	width :40% ;
-  	padding :3px ;
-  	
+  	width :90% ;
+  	padding :5px ;
+
 	border:none;
-	background-color :#FFFFFF ; 
-	color :#689e68 ; 
-	border-bottom :3px solid #689e68 ; 
+	background-color :#FFFFFF ;
+	color :#689e68 ;
+	border-bottom :3px solid #689e68 ;
 	border-radius :0px ;
-	margin-bottom :10px ;
+	margin-bottom :15px ;
     transition: all 150ms ease-in-out;
     &:hover {
         box-shadow: 0 0 40px 40px #063e06 inset;
         width :90% ;
         background-color: #393b3a;
-        color: #FFFFFF; 
+        color: #FFFFFF;
         padding: 3px;
         border-width :0.5px ;
         border-style :solid ;
         border-color :#073707 ;
-        border-radius :5px ; 
+        border-radius :5px ;
       }
 }
 
@@ -188,14 +187,14 @@ button {
 @media only screen and (max-width:600px){
 	.logo-image{
 		width :80% ;
-		min-width :100px ; 
+		min-width :100px ;
 	}
-	
+
 	.button-group .button{
 	   width :90% ;
-	   min-width :90px ; 
-	   
+	   min-width :90px ;
+
 	}
-	
-} 
+
+}
 

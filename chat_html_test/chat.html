@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="chat.css">
+    <title>chat</title>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div id="chat-box">
+            <a th:href="@{/home}">
+            <div id="header">
+                <img src="logo.png" alt="Logo Image" class="logo-image" style="width: 30%;">
+              <p class ="webTitle_chat">Chat</p>
+            
+            </div>
+            </a>
+            <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+                <!--으로 캡슐 생성 가능
+                <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+  
+                <header class="mb-4">
+                <input type="text" class="form-control" placeholder="질문" id="question" th:value="${capsule.question}">
+                </header>
+                <section class="mb-5">
+                <textarea class="form-control h-25" rows="10" placeholder="답변" id="answer" th:text="${capsule.answer}"></textarea>
+            -->
+          <br>
+  
+            <div class="chat-log" id='chat-log'>
+                <div class="chatbot-message">
+                    오늘은 어떤 하루를 보내셨나요?
+                </div>
+            
+                <!-- <div class="user-message">
+                    
+                </div> -->
+            </div>
+  
+  
+            <form id='user-input-form'>
+                <div class="user-input-container">
+                    <input type='text' id='user-input' class='user-input'  placeholder='Type your message here...' required />
+                    <button class= "submit-button" type='submit'>
+                        <img src="sendIcon.png" alt='Submit Image' class="Submit-image"/>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+  
+   <script>
+
+        const API_URL = 'https://api.openai.com/v1/chat/completions';
+        const API_KEY = "API_KEY";
+  
+        const userInput = document.getElementById("user-input");
+        const sendButton = document.querySelector(".submit-button");
+        const chatLog = document.querySelector(".chat-log");
+        const resultContainer = document.getElementById('resultContainer');
+  
+        // 사용자가 메시지를 입력할 때마다 버튼을 활성화
+        userInput.addEventListener('input', () => {
+            if (userInput.value.trim() !== '') {
+                sendButton.disabled = false;
+            } else {
+                sendButton.disabled = true;
+            }
+        });
+  
+        sendButton.addEventListener('click', () => {
+  
+            if (!userInput.value) {
+                alert("Please enter a message.");
+                return;
+            }
+  
+            const userMessage = userInput.value;
+            userInput.value = "";
+  
+            chatLog.innerHTML += `<div class="user-message">${userMessage}</div>`;
+            
+            sendButton.disabled = true;
+
+            userInput.disabled = true;
+  
+            // "Generating..." message 
+            chatLog.innerHTML += '<div class="chatbot-message">Generating...</div>';
+  
+            // GPT-3 API 호출
+            fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "model": "gpt-3.5-turbo",
+                    "messages": [
+                        {"role": "system", "content": "You have to provide mental care to user.answer in 50 words"},
+                        {"role": "user", "content": userMessage}
+                    ]
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const botMessage = data.choices[0].message.content;
+  
+                // "Generating..." message 삭제
+                const chatbotMessages = chatLog.querySelectorAll('.chatbot-message');
+                chatbotMessages[chatbotMessages.length - 1].remove();
+  
+                chatLog.innerHTML += `<div class="chatbot-message">${botMessage}</div>`;
+  
+                // Scroll
+                chatLog.scrollTop = chatLog.scrollHeight;
+
+                userInput.disabled = false;
+            });
+  
+        });
+        
+    </script>
+  </body>
+  </html>
+  

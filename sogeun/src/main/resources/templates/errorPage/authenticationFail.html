@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" th:href="@{/css/user.css}">
+  <link rel="stylesheet" th:href="@{/css/fail.css}">
   <title th:text="|${pageName}|"></title>
 </head>
 <body>
@@ -10,7 +10,7 @@
   <a th:href="@{/index}"><img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" style="width:70%;"></a> <hr/>
   <h2 class="textx">(인증 실패)로그인하지 않았습니다!</h2>
   <br>
-  <a th:href="@{/index}"><button class="button login-button">Login</button></a>
+  <a th:href="@{/security-login/login}"><button class="button login-button">Login</button></a>
 
 
 </div>
