@@ -11,7 +11,7 @@ CREATE TABLE qna (
     id INT,
     question TEXT NOT NULL,
     answer TEXT NOT NULL,
-    qnadate DATETIME NOT NULL,
+    qnadate DATE NOT NULL,
     FOREIGN KEY (id) REFERENCES webuser(id)
 );
 
