@@ -3,7 +3,7 @@ CREATE TABLE webuser (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     nickname VARCHAR(100) NOT NULL UNIQUE,
-    role VARCHAR(10) DEFAULT 'USER'
+    role VARCHAR(10) 
 );
 
 CREATE TABLE qna (
