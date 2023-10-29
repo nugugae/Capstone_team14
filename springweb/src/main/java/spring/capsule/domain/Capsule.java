@@ -6,11 +6,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "qna")
@@ -20,33 +23,42 @@ public class Capsule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qnaid", updatable = false)
     private Long qnaid;
-
-    @Column(name = "question")//, nullable = false)
+    @Column(name = "question", nullable = false)
     private String question;
 
-    @Column(name = "answer")//, nullable = false)
+    @Column(name = "answer", nullable = false)
     private String answer;
 
-    //이름 고민 원래 qnaDate
+    @ElementCollection
+    private List<QnA> qnaList = new ArrayList<>();
+
+
     @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "qnadate")
+    private LocalDate qnadate;
 
-    //이거는 지워야할듯
-//    @LastModifiedDate
-//    @Column(name = "updated_at")
-//    private LocalDateTime updatedAt;
+    //유저와 연결
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private User user;
 
+    //빌더 패턴으로 객체 생성
     @Builder
-    public Capsule(String question, String answer,LocalDateTime createdAt) {
+    public Capsule(String question, String answer) {
         this.question = question;
         this.answer = answer;
-        this.createdAt = createdAt;
+    }
+    public Capsule(List<QnA> qnaList) {
+        this.qnaList = qnaList;
     }
 
-    public void update(String question, String answer,LocalDateTime createdAt) {
-        this.question = question;
-        this.answer = answer;
-        this.createdAt = createdAt;
+    public void setQnadate(LocalDate qnadate) {
+        this.qnadate = qnadate;
     }
+
+//    public void update(String question, String answer,LocalDate qnadate) {
+//        this.question = question;
+//        this.answer = answer;
+//        this.qnadate = qnadate;
+//    }
 }

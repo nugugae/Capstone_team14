@@ -1,18 +1,22 @@
 package spring.capsule.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import spring.capsule.domain.Capsule;
+import spring.capsule.dto.AddCapsuleRequest;
 import spring.capsule.dto.CapsuleListViewResponse;
 import spring.capsule.dto.CapsuleViewResponse;
 import spring.capsule.service.CapsuleService;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
+//웹 페이지를 렌더링 @Controller
 @RequiredArgsConstructor
 @Controller
 public class CapsuleViewController {
@@ -49,4 +53,34 @@ public class CapsuleViewController {
 
         return "chat";
     }
+
+    @PostMapping("/capsule/save")
+    public ResponseEntity<Capsule> addCapsule(@RequestBody AddCapsuleRequest request) {
+
+        Capsule savedCapsule = capsuleService.save(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedCapsule);
+    }
+
+
+    @GetMapping("/capsules/by-date")
+    public String getCapsulesGroupedByDate(Model model) {
+        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate = capsuleService.findAllGroupedByDate();
+        model.addAttribute("capsulesByDate", capsulesByDate);
+        return "capsuleListByDate";
+    }
+
+//
+//    @GetMapping("/capsules/date/{date}")
+//    public String getCapsulesByDate(@PathVariable String date, Model model) {
+//        LocalDate localDate = LocalDate.parse(date);
+//        List<Capsule> capsules = capsuleService.findByDate(localDate);
+//        model.addAttribute("capsules", capsules);
+//        return "capsuleListByDate";
+//    }
+
+
+
+
 }

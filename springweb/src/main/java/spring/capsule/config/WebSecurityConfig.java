@@ -12,8 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import spring.capsule.service.UserDetailService;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
-
 @RequiredArgsConstructor
 @Configuration
 public class WebSecurityConfig {//page210
@@ -24,7 +22,6 @@ public class WebSecurityConfig {//page210
     @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
-                .requestMatchers(toH2Console())
                 .requestMatchers("/static/**");
     }
 
@@ -35,7 +32,7 @@ public class WebSecurityConfig {//page210
                 .authorizeRequests()
                 .requestMatchers("/login", "/signup", "/user").permitAll()
                 .requestMatchers( "/css/**", "/js/**", "/images/**", "/asset/**").permitAll()
-                .requestMatchers("/", "").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

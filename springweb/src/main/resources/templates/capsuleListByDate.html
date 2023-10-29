@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Capsules by Date</title>
+</head>
+<body>
+<h1>Capsules Grouped by Date</h1>
+<div th:each="entry : ${capsulesByDate}">
+    <h2 th:text="${entry.key}"></h2>
+    <ul>
+        <li th:each="capsule : ${entry.value}">
+            Question: <span th:text="${capsule.question}"></span><br/>
+            Answer: <span th:text="${capsule.answer}"></span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

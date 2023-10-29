@@ -1,3 +1,3 @@
-INSERT INTO qna (question, answer) VALUES ('question', 'answer1')
-INSERT INTO qna (question, answer) VALUES ('question2', 'answer2')
-INSERT INTO qna (question, answer) VALUES ('question3', 'answer3')
+INSERT INTO qna (question, answer, qnadatetime ) VALUES ('최근에 자주 불면을 겪었나요?', '네, 매일 밤 잠들기가 어렵습니다',2018-03-14)
+INSERT INTO qna (question, answer, qnadatetime) VALUES ('어떤 점에서 가장 스트레스를 느끼시나요', '직장에서의 일 때문에 스트레스를 많이 받고 있습니다.', 2023-10-27)
+INSERT INTO qna (question, answer, qnadatetime) VALUES ('일 때문에 스트레스를 많이 받고 계시군요. 그런 상황에서 어떤 생각이 드시나요?', '머릿속이 복잡하고 터무니없이 긴장되는 느낌이 들어요. 그리고 일이 쌓여갈수록 압박감이 더해져서 힘들어져요',2023-10-27)
