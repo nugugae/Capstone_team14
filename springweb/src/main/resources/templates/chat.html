@@ -15,7 +15,7 @@
           
           </div>
           </a>
-          <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+          <!-- <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}"> -->
               <!--으로 캡슐 생성 가능
               <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
 
@@ -35,6 +35,7 @@
               <!-- <div class="user-message">
                   
               </div> -->
+              <input type="hidden" class="user-message" th:value="${userMessage}" />
           </div>
 
 
@@ -52,6 +53,7 @@
 
  <script>
 
+
         const API_URL = 'https://api.openai.com/v1/chat/completions';
         const API_KEY = "API_KEY";
 
@@ -61,14 +63,14 @@
         const resultContainer = document.getElementById('resultContainer');
 
         const system_prompt = [
-            {"role": "system", "content": "You empathize with users and help the user take care of their minds. Answer in 50 words"},
-            {"role": "system", "content": "If you don't understand what the user says, ask again carefully.Answer in 50 words"},
-            {"role": "system", "content": "If you can guess what users feel, share the guess with the user.Answer in 50 words"},
-            {"role": "system", "content": "Before suggesting advice, you should ask if the user wants.Answer in 50 words"},
-            {"role": "system", "content": "You should give advice with numbering.Answer in 50 words"},
-            {"role": "system", "content": "If the user experiences an emotion, ask the user why they are feeling that emotion.Answer in 50 words"},
+            {"role": "system", "content": "You empathize with users and help the user take care of their minds."},
+            {"role": "system", "content": "If you don't understand what the user says, ask again carefully."},
+            {"role": "system", "content": "If you can guess what users feel, share the guess with the user."},
+            {"role": "system", "content": "Before suggesting advice, you should ask if the user wants."},
+            {"role": "system", "content": "You should give advice with numbering."},
+            {"role": "system", "content": "If the user experiences an emotion, ask the user why they are feeling that emotion."},
             {"role": "system", "content": "You must say it in 50 words."},
-            {"role": "system", "content": "You must say it in Korean.Answer in 50 words"},
+            {"role": "system", "content": "You must say it in Korean."},
         ]
 
         const conversation = [
@@ -85,6 +87,18 @@
             conversation.push({"role": "user", "content": userMessage});
             userInput.value = "";
             let botMessage = "";
+
+            // // Send the user-message
+            // await fetch("/saveMessage", {   //이곳의 url바꿔서 백이랑 연결
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({ content: userMessage }),
+            // });
+
+            // Send the user-message
+            await saveUserMessage(userMessage);
 
             const response = await fetch(API_URL, {
                 method: 'POST',
@@ -155,6 +169,22 @@
                 sendButton.disabled = false;
         };
 
+        const saveUserMessage = async (message) => {
+            const response = await fetch('/saveUserMessage', { //url 백에서 바꿔서 연동 & 엔드포인트 설정
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ content: message }),
+            });
+
+            if (response.status === 200) {
+                console.log('User message saved successfully.');
+            } else {
+                console.error('Error saving user message.');
+            }
+        };
+
 
 
 
@@ -168,7 +198,6 @@
             }
 
     });
-
 
   </script>
 </body>
