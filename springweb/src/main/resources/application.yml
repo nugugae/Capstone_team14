@@ -18,6 +18,11 @@ spring:
 # h2:
 #   console:
 #     enabled: true
+openai:
+  api:
+    model: ${OPENAI_MODEL:gpt-3.5-turbo}
+    key: "${OPENAI_API_KEY:  }"
+    url: "https://api.openai.com/v1/chat/completions"
 
 jwt:
   secret_key: study-springboot

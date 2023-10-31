@@ -26,16 +26,14 @@
         <textarea class="form-control h-25" rows="10" placeholder="답변" id="answer" th:text="${capsule.answer}"></textarea>
     -->
         <br>
+        <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}"> -->
 
+<!--        <input type="hidden" id="question" th:value="${capsule.question}">
+        <input type="hidden" id="answer" th:value="${capsule.answer}">-->
         <div class="chat-log" id='chat-log'>
             <div class="chatbot-message">
                 오늘은 어떤 하루를 보내셨나요?
             </div>
-
-            <!-- <div class="user-message">
-
-            </div> -->
-            <input type="hidden" class="user-message" th:value="${userMessage}" />
         </div>
 
 
@@ -43,8 +41,7 @@
             <div class="user-input-container">
                 <input type='text' id='user-input' placeholder='Type your message here...' required />
 
-                <button th:if="${capsule.qnaid} == null" type="submit" class= "submit-button">
-                    <img th:src="@{/asset/sendIcon.png}" alt='Submit Image' class="Submit-image"/>
+                <img th:src="@{/asset/sendIcon.png}" alt='Submit Image' class="Submit-image"/>
                 </button>
             </div>
         </form>
@@ -52,30 +49,9 @@
 </div>
 
 <script>
-
-
-    const API_URL = 'https://api.openai.com/v1/chat/completions';
-    const API_KEY = "sk-";
-
     const userInput = document.getElementById("user-input");
     const sendButton = document.querySelector(".submit-button");
     const chatLog = document.querySelector(".chat-log");
-    const resultContainer = document.getElementById('resultContainer');
-
-    const system_prompt = [
-        {"role": "system", "content": "You empathize with users and help the user take care of their minds."},
-        {"role": "system", "content": "If you don't understand what the user says, ask again carefully."},
-        {"role": "system", "content": "If you can guess what users feel, share the guess with the user."},
-        {"role": "system", "content": "Before suggesting advice, you should ask if the user wants."},
-        {"role": "system", "content": "You should give advice with numbering."},
-        {"role": "system", "content": "If the user experiences an emotion, ask the user why they are feeling that emotion."},
-        {"role": "system", "content": "You must say it in 50 words."},
-        {"role": "system", "content": "You must say it in Korean."},
-    ]
-
-    const conversation = [
-        {"role": "assistant", "content": "오늘 하루는 어땠나요?"},
-    ]
 
     const generate = async () => {
         const userMessage = userInput.value;
@@ -84,121 +60,35 @@
         userInput.disabled = true;
 
         chatLog.innerHTML += `<div class="user-message">${userMessage}</div>`;
-        conversation.push({"role": "user", "content": userMessage});
-        userInput.value = "";
-        let botMessage = "";
 
-        // // Send the user-message
-        // await fetch("/saveMessage", {   //이곳의 url바꿔서 백이랑 연결
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({ content: userMessage }),
-        // });
-
-        // Send the user-message
-        await saveUserMessage(userMessage);
-
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${API_KEY}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "model": "gpt-3.5-turbo",
-                "messages": system_prompt.concat(conversation),
-                max_tokens: 1024,
-                stream: true,
-            }),
+        // Send the user-message to your backend
+        const response = await fetch('/bot/chat?prompt=' + userMessage, {
+            method: 'GET',
         });
 
-        /*.then(response => response.json())
-        .then(data => {
-        const botMessage = data.choices[0].message.content;
+        if (response.ok) {
+            const data = await response.json();
+            const botReply = data.botReply;
 
-        const chatbotMessages = chatLog.querySelectorAll('.chatbot-message');
-        chatbotMessages[chatbotMessages.length - 1].remove();
-
-        chatLog.innerHTML += `<div class="chatbot-message">${botMessage}</div>`; */
-
-
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-
-        const chatbotMessageDiv = document.createElement('div');
-        chatbotMessageDiv.className = 'chatbot-message';
-        chatLog.appendChild(chatbotMessageDiv);
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) {
-                break;
-            }
-
-            const chunk = decoder.decode(value);
-            const lines = chunk.split("\n");
-
-            const parsedLines = lines
-                .map((line) => line.replace(/^data: /, "").trim())
-                .filter((line) => line !== "" && line !== "[DONE]")
-                .map((line) => JSON.parse(line));
-
-            for (const parsedLine of parsedLines) {
-
-                const { choices } = parsedLine;
-                const { delta } = choices[0];
-                const { content } = delta;
-                if (content) {
-                    botMessage += content;
-                    chatbotMessageDiv.textContent += content;
-                }
-
-            }
-
+            chatLog.innerHTML += `<div class="chatbot-message">${botReply}</div>`;
+            chatLog.scrollTop = chatLog.scrollHeight;
+        } else {
+            console.error('Error fetching data from backend');
         }
 
-        console.log(botMessage);
-        conversation.push({"role":"assistant", "content": botMessage});
-
-
-        // Scroll
-        chatLog.scrollTop = chatLog.scrollHeight;
         userInput.disabled = false;
         sendButton.disabled = false;
     };
 
-    const saveUserMessage = async (message) => {
-        const response = await fetch('/capsule/save', { //url 백에서 바꿔서 연동 & 엔드포인트 설정
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ content: message }),
-        });
-
-        if (response.status === 200) {
-            console.log('User message saved successfully.');
-        } else {
-            console.error('Error saving user message.');
-        }
-    };
-
-
-
-
-    sendButton.addEventListener('click',() => {
+    sendButton.addEventListener('click', () => {
         if (userInput.value.trim() !== '') {
             sendButton.disabled = false;
             generate();
-
         } else {
             sendButton.disabled = true;
         }
-
     });
-
 </script>
+
 </body>
 </html>

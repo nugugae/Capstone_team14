@@ -54,14 +54,14 @@ public class CapsuleViewController {
         return "chat";
     }
 
-    @PostMapping("/capsule/save")
-    public ResponseEntity<Capsule> addCapsule(@RequestBody AddCapsuleRequest request) {
 
+    @PostMapping("/capsule/chat")
+    public String saveCapsule(@ModelAttribute AddCapsuleRequest request, Model model) {
         Capsule savedCapsule = capsuleService.save(request);
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedCapsule);
+        model.addAttribute("capsule", new CapsuleViewResponse(savedCapsule));
+        return "redirect:/capsules/" ; // 저장된 캡슐의 상세 페이지로 리다이렉트
     }
+
 
 
     @GetMapping("/capsules/by-date")
