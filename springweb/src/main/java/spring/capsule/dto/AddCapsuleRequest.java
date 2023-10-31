@@ -14,13 +14,14 @@ import java.util.List;
 @Getter
 public class AddCapsuleRequest {
     private String question;
-
     private String answer;
+    private LocalDate qnadate;
 
     public Capsule toEntity() {
         return Capsule.builder()
                 .question(question)
                 .answer(answer)
+                .qnadate(qnadate)
                 .build();
     }
 //    private List<QnA> qnaList;

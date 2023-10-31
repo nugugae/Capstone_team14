@@ -23,14 +23,14 @@ public class Capsule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qnaid", updatable = false)
     private Long qnaid;
-    @Column(name = "question", nullable = false)
+    @Column(name = "question")//, nullable = false)
     private String question;
 
-    @Column(name = "answer", nullable = false)
+    @Column(name = "answer")//, nullable = false)
     private String answer;
-
-    @ElementCollection
-    private List<QnA> qnaList = new ArrayList<>();
+//
+//    @ElementCollection
+//    private List<QnA> qnaList = new ArrayList<>();
 
 
     @CreatedDate
@@ -44,18 +44,20 @@ public class Capsule {
 
     //빌더 패턴으로 객체 생성
     @Builder
-    public Capsule(String question, String answer) {
+    public Capsule(String question, String answer, LocalDate qnadate) {
         this.question = question;
         this.answer = answer;
+        this.qnadate = qnadate;
     }
-    public Capsule(List<QnA> qnaList) {
-        this.qnaList = qnaList;
-    }
+    //public Capsule(List<QnA> qnaList) {  this.qnaList = qnaList;    }
 
     public void setQnadate(LocalDate qnadate) {
         this.qnadate = qnadate;
     }
-
+    public  void setUser(User user){
+        this.user =user;
+        user.getCapsules().add(this);
+    }
 //    public void update(String question, String answer,LocalDate qnadate) {
 //        this.question = question;
 //        this.answer = answer;
