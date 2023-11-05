@@ -22,11 +22,5 @@ public class AddCapsuleRequest {
                 .qnadate(qnadate)
                 .build();
     }
-//    private List<QnA> qnaList;
-//
-//    public Capsule toEntity() {
-//        Capsule capsule = Capsule.builder().build();
-//        capsule.getQnaList().addAll(qnaList);
-//        return capsule;
-//    }
+ 
 }

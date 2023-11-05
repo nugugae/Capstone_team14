@@ -21,7 +21,7 @@ public class Emotion {
 
     //유저와 연결
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "uid")
     private User user;
 
     @Column(name = "emotionDate")

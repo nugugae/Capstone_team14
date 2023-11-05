@@ -39,7 +39,7 @@ public class Capsule {
 
     //유저와 연결
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "uid")
     private User user;
 
     //빌더 패턴으로 객체 생성
@@ -57,6 +57,21 @@ public class Capsule {
     public  void setUser(User user){
         this.user =user;
         user.getCapsules().add(this);
+    }
+
+
+    public Capsule(LocalDate qnadate) {
+        this.qnadate = qnadate;
+    }
+
+    // Method to add a question
+    public void addQuestion(String question) {
+        // Logic to append or set the question, e.g., this.question = question;
+    }
+
+    // Method to add an answer
+    public void addAnswer(String answer) {
+        // Logic to append or set the answer, e.g., this.answer = answer;
     }
 //    public void update(String question, String answer,LocalDate qnadate) {
 //        this.question = question;

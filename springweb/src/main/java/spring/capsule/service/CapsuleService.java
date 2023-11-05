@@ -35,9 +35,9 @@ public class CapsuleService {
     }
 
 
-    public List<Capsule> findByDate(LocalDate date) {
-        return capsuleRepository.findByQnadate(date);
-    }
+//    public List<Capsule> findByDate(LocalDate date) {
+//        return capsuleRepository.findByQnadate(date);
+//    }
 
     public Capsule saveWithDate(AddCapsuleRequest request, LocalDate date) {
         Capsule capsule = request.toEntity();
@@ -51,6 +51,19 @@ public class CapsuleService {
                 .collect(Collectors.groupingBy(CapsuleViewResponse::getQnadate));
 
     }
+    @Transactional
+    public Capsule saveOrUpdateTodayCapsule(AddCapsuleRequest request) {
+        LocalDate today = LocalDate.now();
+        Capsule capsule = capsuleRepository.findByQnadate(today)
+                .orElseGet(() -> new Capsule(today)); // Assuming there's a constructor in Capsule class that takes the date
+
+        // Assuming there are methods to add questions and answers to the capsule
+        capsule.addQuestion(request.getQuestion());
+        capsule.addAnswer(request.getAnswer());
+
+        return capsuleRepository.save(capsule);
+    }
+
 
 }
 //    public void delete(long id) {

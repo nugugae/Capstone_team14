@@ -22,8 +22,8 @@ public class User implements UserDetails {//UserDetails 상속받아 인증객�
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private Long id;
+    @Column(name = "uid", updatable = false)
+    private Long uid;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;

@@ -1,17 +1,15 @@
 package spring.capsule.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import spring.capsule.domain.Capsule;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Optional;
 
+@Repository
 public interface CapsuleRepository extends JpaRepository<Capsule, Long> {
-    List<Capsule> findByQnadate(LocalDate qnadate);
-    //@Query("SELECT c FROM Capsule c WHERE DATE(c.qnadate) = :date")
-    //List<Capsule> findByQnadate(@Param("date") LocalDate date);
 
+    // Change the method signature to return an Optional<Capsule>
+    Optional<Capsule> findByQnadate(LocalDate qnadate);
 }
-

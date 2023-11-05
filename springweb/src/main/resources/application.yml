@@ -1,3 +1,19 @@
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password: password
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        ddl-auto: update
+#  h2:
+#    console:
+#      enabled: true
+#
+
 spring:
   jpa:
     show-sql: true
@@ -14,14 +30,10 @@ spring:
     password: Capst0ne!
 
 
-# H2 설정 제거
-# h2:
-#   console:
-#     enabled: true
 openai:
   api:
     model: ${OPENAI_MODEL:gpt-3.5-turbo}
-    key: "${OPENAI_API_KEY:  }"
+    key: "${OPENAI_API_KEY: sk-}"
     url: "https://api.openai.com/v1/chat/completions"
 
 jwt:
