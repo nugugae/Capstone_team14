@@ -7,7 +7,7 @@ CREATE TABLE webuser (
 );
 
 CREATE TABLE qna (
-    qnauid BIGINT AUTO_INCREMENT PRIMARY KEY,
+    qnaid BIGINT AUTO_INCREMENT PRIMARY KEY,
     uid INT,
     question TEXT NOT NULL,
     answer TEXT NOT NULL,
