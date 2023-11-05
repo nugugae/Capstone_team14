@@ -9,8 +9,8 @@ CREATE TABLE webuser (
 CREATE TABLE qna (
     qnaid BIGINT AUTO_INCREMENT PRIMARY KEY,
     uid INT,
-    question TEXT NOT NULL,
-    answer TEXT NOT NULL,
+    question TEXT,
+    answer TEXT,
     qnadate DATE NOT NULL,
     FOREIGN KEY (uid) REFERENCES webuser(uid)
 );
