@@ -8,11 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import spring.capsule.domain.Capsule;
+import spring.capsule.domain.User;
 import spring.capsule.dto.AddCapsuleRequest;
 import spring.capsule.dto.CapsuleListViewResponse;
 import spring.capsule.dto.CapsuleViewResponse;
 import spring.capsule.service.CapsuleService;
+import spring.capsule.service.UserService;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +25,7 @@ import java.util.Map;
 @Controller
 public class CapsuleViewController {
     private final CapsuleService capsuleService;
+    private final UserService userService;
     @Value("${openai.api.model}")
     private String model;
 
@@ -76,17 +80,23 @@ public class CapsuleViewController {
 
 
     @PostMapping("/capsule/chat")
-    public ResponseEntity<?> saveCapsule(@RequestBody AddCapsuleRequest request) {
-        try {
-            // Logic to either append to today's capsule or create a new one if it doesn't exist
-            Capsule savedCapsule = capsuleService.saveOrUpdateTodayCapsule(request);
-            // Return a successful response with the saved capsule data
-            return ResponseEntity.ok(new CapsuleViewResponse(savedCapsule));
-        } catch (Exception e) {
-            // Handle exceptions and return an appropriate error response
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public ResponseEntity<Capsule> saveCapsule(@RequestBody AddCapsuleRequest request, Principal principal) {
+        User user = userService.findByEmail(principal.getName());
+
+        Capsule savedCapsule = capsuleService.save(request,user.getUid());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedCapsule);
+//        try {
+//            // Logic to either append to today's capsule or create a new one if it doesn't exist
+//            Capsule savedCapsule = capsuleService.saveOrUpdateTodayCapsule(request);
+//            // Return a successful response with the saved capsule data
+//            return ResponseEntity.ok(new CapsuleViewResponse(savedCapsule));
+//        } catch (Exception e) {
+//            // Handle exceptions and return an appropriate error response
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+//        }
     }
+
 
     @GetMapping("/capsules/by-date")
     public String getCapsulesGroupedByDate(Model model) {

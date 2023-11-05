@@ -4,10 +4,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import spring.capsule.domain.Capsule;
+import spring.capsule.domain.User;
 import spring.capsule.dto.AddCapsuleRequest;
 import spring.capsule.dto.CapsuleViewResponse;
 import spring.capsule.dto.UpdateCapsuleRequest;
 import spring.capsule.repository.CapsuleRepository;
+import spring.capsule.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,10 +21,21 @@ import java.util.stream.Collectors;
 public class CapsuleService {
 
     private final CapsuleRepository capsuleRepository;
+    private final UserRepository userRepository;
+    private User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+    }
 
     //캡슐추가 메서드
-    public Capsule save(AddCapsuleRequest request) {
-        return capsuleRepository.save(request.toEntity());
+    public Capsule save(AddCapsuleRequest request, Long userId) {
+        User user = getUserById(userId);
+
+        // Create a Capsule entity using the request and the fetched user
+        Capsule capsule = request.toEntity(user);
+
+        // Save the capsule entity to the database
+        return capsuleRepository.save(capsule);
     }
 
     public List<Capsule> findAll() {
@@ -39,8 +52,9 @@ public class CapsuleService {
 //        return capsuleRepository.findByQnadate(date);
 //    }
 
-    public Capsule saveWithDate(AddCapsuleRequest request, LocalDate date) {
-        Capsule capsule = request.toEntity();
+    public Capsule saveWithDate(AddCapsuleRequest request, LocalDate date, Long userId) {
+        User user = getUserById(userId);
+        Capsule capsule = request.toEntity(user);
         capsule.setQnadate(date);
         return capsuleRepository.save(capsule);
     }

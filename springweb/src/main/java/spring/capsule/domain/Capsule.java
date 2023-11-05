@@ -1,5 +1,6 @@
 package spring.capsule.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,13 +39,15 @@ public class Capsule {
     private LocalDate qnadate;
 
     //유저와 연결
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uid")
     private User user;
 
     //빌더 패턴으로 객체 생성
     @Builder
-    public Capsule(String question, String answer, LocalDate qnadate) {
+    public Capsule(User user ,String question, String answer, LocalDate qnadate) {
+        this.user = user;
         this.question = question;
         this.answer = answer;
         this.qnadate = qnadate;

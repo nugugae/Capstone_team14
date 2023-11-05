@@ -5,11 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.capsule.domain.Capsule;
+import spring.capsule.domain.User;
 import spring.capsule.dto.AddCapsuleRequest;
 import spring.capsule.dto.CapsuleResponse;
 import spring.capsule.dto.UpdateCapsuleRequest;
 import spring.capsule.service.CapsuleService;
+import spring.capsule.service.UserService;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 //API 제공 컨트롤러,  프론트엔드 서버나 다른 서비스와의 데이터 통신을 위해 사용
@@ -18,13 +21,14 @@ import java.util.List;
 public class CapsuleApiController {//클라이언트에게 JSON 혹은 XML 형식의 데이터를 직접 반환
 
     private final CapsuleService capsuleService;
-
+    private final UserService userService;
 
     @PostMapping("/api/capsules")
-    public ResponseEntity<Capsule> addCapsule(@RequestBody AddCapsuleRequest request) {
+    public ResponseEntity<Capsule> addCapsule(@RequestBody AddCapsuleRequest request, Principal principal) {
 
-        Capsule savedCapsule = capsuleService.save(request);
+        User user = userService.findByEmail(principal.getName());
 
+        Capsule savedCapsule = capsuleService.save(request,user.getUid());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedCapsule);
     }

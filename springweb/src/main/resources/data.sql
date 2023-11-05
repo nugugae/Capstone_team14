@@ -1,3 +1,26 @@
-//INSERT INTO qna (question, answer, qnadatetime ) VALUES ('최근에 자주 불면을 겪었나요?', '네, 매일 밤 잠들기가 어렵습니다',2018-03-14)
-//INSERT INTO qna (question, answer, qnadatetime) VALUES ('어떤 점에서 가장 스트레스를 느끼시나요', '직장에서의 일 때문에 스트레스를 많이 받고 있습니다.', 2023-10-27)
-//INSERT INTO qna (question, answer, qnadatetime) VALUES ('일 때문에 스트레스를 많이 받고 계시군요. 그런 상황에서 어떤 생각이 드시나요?', '머릿속이 복잡하고 터무니없이 긴장되는 느낌이 들어요. 그리고 일이 쌓여갈수록 압박감이 더해져서 힘들어져요',2023-10-27)
+CREATE TABLE webuser (
+                         uid INT AUTO_INCREMENT PRIMARY KEY,
+                         email VARCHAR(100) NOT NULL UNIQUE,
+                         password VARCHAR(100) NOT NULL,
+                         nickname VARCHAR(100) NOT NULL UNIQUE,
+                         role VARCHAR(10)
+);
+
+CREATE TABLE qna (
+                     qnaid BIGINT AUTO_INCREMENT PRIMARY KEY,
+                     uid INT NOT NULL,
+                     question TEXT,
+                     answer TEXT,
+                     qnadate DATE NOT NULL,
+                     FOREIGN KEY (uid) REFERENCES webuser(uid)
+);
+
+CREATE TABLE emotion (
+                         emotion VARCHAR(100) NOT NULL,
+                         uid INT,
+                         emotionDate DATETIME NOT NULL,
+                         FOREIGN KEY (uid) REFERENCES webuser(uid)
+);
+
+CREATE INDEX qna_ix1 ON qna (uid, qnadate);
+CREATE INDEX emotion_ix1 ON emotion (uid, emotionDate);
