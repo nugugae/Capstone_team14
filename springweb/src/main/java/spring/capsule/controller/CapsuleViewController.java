@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import spring.capsule.domain.Capsule;
 import spring.capsule.domain.User;
 import spring.capsule.dto.AddCapsuleRequest;
@@ -19,6 +20,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //웹 페이지를 렌더링 @Controller
 @RequiredArgsConstructor
@@ -34,26 +36,27 @@ public class CapsuleViewController {
     @Value("${openai.api.key}")
     private String apikey;
 
+    // 전체 캡슐
     @GetMapping("/capsules")
     public String getCapsules(Model model) {
-        List<CapsuleListViewResponse> capsules = capsuleService.findAll()
-                .stream()
-                .map(CapsuleListViewResponse::new)
-                .toList();
-        model.addAttribute("capsules", capsules);
+        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate = capsuleService.findAllGroupedByDate();
+        model.addAttribute("capsulesByDate", capsulesByDate);
 
         return "capsuleList";
     }
 
-    @GetMapping("/capsules/{id}")
-    public String getCapsule(@PathVariable Long id, Model model) {
-        Capsule capsule = capsuleService.findById(id);
-        model.addAttribute("capsule", new CapsuleViewResponse(capsule));
+    //해당 날짜 보기
+    @GetMapping("/capsule/{date}")
+    public String getCapsulesByDate(@PathVariable String date, Model model) {
+        LocalDate localDate = LocalDate.parse(date);
+        List<Capsule> capsules = capsuleService.findAllByDate(localDate);
+        model.addAttribute("capsules", capsules.stream().map(CapsuleViewResponse::new).collect(Collectors.toList()));
 
         return "capsule";
     }
 
 
+    //채팅
     @GetMapping("/capsule/chat")
     public String newCapsule(@RequestParam(required = false) Long id, Model model) {
         if (id == null) {
@@ -70,13 +73,6 @@ public class CapsuleViewController {
         return "chat";
     }
 
-//
-//    @PostMapping("/capsule/chat")
-//    public String saveCapsule(@ModelAttribute AddCapsuleRequest request, Model model) {
-//        Capsule savedCapsule = capsuleService.save(request);
-//        model.addAttribute("capsule", new CapsuleViewResponse(savedCapsule));
-//        return "redirect:/capsules/" ; // 저장된 캡슐의 상세 페이지로 리다이렉트
-//    }
 
 
     @PostMapping("/capsule/chat")
@@ -86,33 +82,10 @@ public class CapsuleViewController {
         Capsule savedCapsule = capsuleService.save(request,user.getUid());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedCapsule);
-//        try {
-//            // Logic to either append to today's capsule or create a new one if it doesn't exist
-//            Capsule savedCapsule = capsuleService.saveOrUpdateTodayCapsule(request);
-//            // Return a successful response with the saved capsule data
-//            return ResponseEntity.ok(new CapsuleViewResponse(savedCapsule));
-//        } catch (Exception e) {
-//            // Handle exceptions and return an appropriate error response
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-//        }
+
     }
 
 
-    @GetMapping("/capsules/by-date")
-    public String getCapsulesGroupedByDate(Model model) {
-        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate = capsuleService.findAllGroupedByDate();
-        model.addAttribute("capsulesByDate", capsulesByDate);
-        return "capsuleListByDate";
-    }
-
-//
-//    @GetMapping("/capsules/date/{date}")
-//    public String getCapsulesByDate(@PathVariable String date, Model model) {
-//        LocalDate localDate = LocalDate.parse(date);
-//        List<Capsule> capsules = capsuleService.findByDate(localDate);
-//        model.addAttribute("capsules", capsules);
-//        return "capsuleListByDate";
-//    }
 
 
 

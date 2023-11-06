@@ -5,11 +5,13 @@ import org.springframework.stereotype.Repository;
 import spring.capsule.domain.Capsule;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface CapsuleRepository extends JpaRepository<Capsule, Long> {
 
     // Change the method signature to return an Optional<Capsule>
-    Optional<Capsule> findByQnadate(LocalDate qnadate);
+    List<Capsule> findAllByQnadate(LocalDate date);
+    //Optional<Capsule> findByQnadate(LocalDate qnadate);
 }

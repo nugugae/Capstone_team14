@@ -14,6 +14,7 @@ import spring.capsule.repository.UserRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -46,6 +47,12 @@ public class CapsuleService {
         return capsuleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
+//    public Optional<Capsule> findByDate(LocalDate date) {
+//        return capsuleRepository.findByQnadate(date);
+//    }
+    public List<Capsule> findAllByDate(LocalDate date) {
+        return capsuleRepository.findAllByQnadate(date);
+    }
 
 
 //    public List<Capsule> findByDate(LocalDate date) {
@@ -66,17 +73,44 @@ public class CapsuleService {
 
     }
     @Transactional
-    public Capsule saveOrUpdateTodayCapsule(AddCapsuleRequest request) {
+    public List<Capsule> saveOrUpdateTodayCapsule(AddCapsuleRequest request) {
         LocalDate today = LocalDate.now();
-        Capsule capsule = capsuleRepository.findByQnadate(today)
-                .orElseGet(() -> new Capsule(today)); // Assuming there's a constructor in Capsule class that takes the date
+        List<Capsule> capsules = capsuleRepository.findAllByQnadate(today);
 
-        // Assuming there are methods to add questions and answers to the capsule
-        capsule.addQuestion(request.getQuestion());
-        capsule.addAnswer(request.getAnswer());
+        if (capsules.isEmpty()) {
+            // If no capsules are found for today, create a new one
+            Capsule newCapsule = new Capsule(today);
+            newCapsule.addQuestion(request.getQuestion());
+            newCapsule.addAnswer(request.getAnswer());
+            // Save the new capsule
+            capsuleRepository.save(newCapsule);
+            // Add the new capsule to the list
+            capsules.add(newCapsule);
+        } else {
+            // If capsules are found, update them with the new question and answer
+            for (Capsule capsule : capsules) {
+                capsule.addQuestion(request.getQuestion());
+                capsule.addAnswer(request.getAnswer());
+                // Update the capsule
+                capsuleRepository.save(capsule);
+            }
+        }
 
-        return capsuleRepository.save(capsule);
+        return capsules;
     }
+
+//    @Transactional
+//    public Capsule saveOrUpdateTodayCapsule(AddCapsuleRequest request) {
+//        LocalDate today = LocalDate.now();
+//        Capsule capsule = capsuleRepository.findAllByQnadate(today)
+//                .orElseGet(() -> new Capsule(today)); // Assuming there's a constructor in Capsule class that takes the date
+//
+//        // Assuming there are methods to add questions and answers to the capsule
+//        capsule.addQuestion(request.getQuestion());
+//        capsule.addAnswer(request.getAnswer());
+//
+//        return capsuleRepository.save(capsule);
+//    }
 
 
 }
