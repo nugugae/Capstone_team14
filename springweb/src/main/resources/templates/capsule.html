@@ -27,30 +27,32 @@
           </section>
         -->
 
-
-
-
         <br>
-        <div class="chatbot-message">
-            오늘은 어떤 하루를 보내셨나요?
-        </div>
-        <div class="user-message">
-            오늘은 조금 힘든 날이었어
-        </div>
-        <div class="chatbot-message">
-            저도 그런 날이 있습니다.
-            힘든 날이라면 일단 자신을 위로해주고 휴식을 취하는 것도 좋은 방법입니다.
-            무엇보다 중요한 것은 긍정적으로 생각하고 힘을 내는 것입니다.
-            앞으로 더 좋은 일들이 기다리고 있을 거라는 생각으로 오늘을 잘 마무리해보세요.
-            화이팅!
-        </div>
-        <div class="user-message">
-            고마워
-        </div>
-        <div class="chatbot-message">
-            아니에요, 제가 도와줄 수 있는게 있으면 언제든지 말씀해주세요.
-            다른 도움이 필요하신가요?
-        </div>
+
+        <!-- <div id="chat-messages">
+            <ul>
+                <li th:each="message : ${capsule.getMessages()}">
+                    <p><span th:text="${message.getRole()}"></span>: <span th:text="${message.getContent()}"></span></p>
+                </li>
+            </ul>
+        </div> -->
+
+                <!-- Capsule 정보 출력 -->
+                <div class="capsule-info">
+                    <h1 th:text="${capsule.question}" class="question"></h1>
+                    <p class="date" th:text="|Created on ${#temporals.format(capsule.qnadate, 'yyyy-MM-dd')}|"></p>
+                </div>
+        
+                <!-- 채팅 기록 출력 -->
+                <div class="chat-history">
+                    <div th:each="message : ${capsule.messages}">
+                        <div th:class="${message.role == 'user'} ? 'user-message' : 'chatbot-message'" th:text="${message.content}"></div>
+                    </div>
+                </div>
+
+  
+
+        
 
 
     </div>

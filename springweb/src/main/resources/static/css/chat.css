@@ -27,6 +27,10 @@ body {
 a {
    text-decoration: none;
  }
+.list{
+    color:#468c46;
+    text-decoration: none;
+}
 
 .chat-container {
 

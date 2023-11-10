@@ -8,30 +8,59 @@
 <body>
 <div class="chat-container">
     <a th:href="@{/home}">
-    <div id="header">
-        <img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" >
-        <p class="webTitle_logs">Memorials</p>
-    </div>
+        <div id="header">
+            <img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" >
+            <p class="webTitle_logs">Memorials</p>
+        </div>
     </a>
 
     <br>
     <div class="capsule-container">
-        <!-- <div class="row-6" th:each="item : ${capsules}">
-       
-        <div class="row-6" th:each="item : ${capsules}"> 캡슐 가져오는
-        <a th:href="@{/capsules/{id}(id=${item.qnaid})}" class="btn btn-primary">보러가기</a>
-         -->
 
-         <div class='capsule blocked-capsule'>
-                
-            <span>No.2</span><br>
-            <span>DATE : 2023-10-20</span>
+
+        <!-- 
+            //모든 id다 가지고 오는 코드
+            <div class="capsule" th:each="entry : ${capsulesByDate}">
+            <div th:each="qna : ${entry.value}">
+                <a class = "list" th:href="@{'/capsule/' + ${qna.qnadate}}">
+                    <span th:text="'No.' + ${qna.qnaid}"></span><br>
+                    <span th:text="'DATE : ' + ${qna.qnadate}"></span>
+                </a>
+            </div>
+        </div> -->
+
+        <div class="capsule" th:each="entry : ${capsulesByDate.entrySet()}">
+            <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
+                <div>
+                    <span th:text="'No.' + ${entry.value[0].qnaid}"></span><br>
+                    <span th:text="'DATE : ' + ${entry.key}"></span>
+                </div>
+            </a>
         </div>
-        <div class="capsule" th:onclick="|location.href='@{/capsules/1}'|">
-            <span>No.1</span><br>
-            <span>DATE : 2023-09-31</span>
-        </div>
-        
+        <!-- 
+            //#dates.daysBetween가 타임리프랑 호환 문제 있는 듯
+        <div th:each="entry : ${capsulesByDate.entrySet()}" th:class="${#dates.daysBetween(#dates.createOrModify(#dates.createNow(), -7, null, null, null, null, null), #dates.parse(entry.key, 'yyyy-MM-dd')) >= 0 ? 'capsule blocked-capsule' : 'capsule'}">
+            <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
+                <div>
+                    <span th:text="'No.' + ${entry.value[0].qnaid}"></span><br>
+                    <span th:text="'DATE : ' + ${entry.key}"></span>
+                </div>
+            </a>
+        </div> -->
+
+
+        <!-- <div th:each="entry : ${capsulesByDate.entrySet()}" th:class="${entry.value[0].isWithinWeek ? 'capsule blocked-capsule' : 'capsule'}">
+            //isWithinWeek는 백엔드에서 7일 계산하는 메서드 이름 예시
+            <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
+                <div>
+                    <span th:text="'No.' + ${entry.value[0].qnaid}"></span><br>
+                    <span th:text="'DATE : ' + ${entry.key}"></span>
+                </div>
+            </a>
+        </div> -->
+
+
+
     </div>
     <br><br>
 
@@ -45,4 +74,7 @@
     </nav>
 </div>
 </body>
+
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </html>
