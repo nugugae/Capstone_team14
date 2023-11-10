@@ -29,6 +29,7 @@ dependencies {
 
     //runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly 'org.webjars:bootstrap:4.5.0'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
