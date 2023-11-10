@@ -1,24 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Capsule Conversations on [[${date}]]</title>
-    <!-- Add your stylesheet links here -->
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+    <title th:text="|${pageName}|"></title>
 </head>
 <body>
-<h1>Capsule Conversations on <span th:text="${date}"></span></h1>
-<div th:if="${capsules == null or #lists.isEmpty(capsules)}">
-    <p>No conversations found for this date.</p>
-</div>
-<div th:if="${capsules != null and not #lists.isEmpty(capsules)}">
-    <div th:each="capsule, iterStat : ${capsules}">
-        <div>
-            <p><strong>Question:</strong> <span th:text="${capsule.question}">Question text</span></p>
-            <p><strong>Answer:</strong> <span th:text="${capsule.answer}">Answer text</span></p>
+<div class="chat-container">
+
+    <div id="chat-box">
+        <a th:href="@{/home}">
+            <div id="header">
+                <img th:src="@{/asset/logo.png}" alt="Logo Image" class="logo-image" >
+                <p class ="webTitle_capsule">My Log</p>
+            </div>
+        </a>
+
+        <!--capsule.qnaid로 들어갈 수 있음 mylog 에서 변경
+          <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+          <header class="mb-4">
+            <h1 class="fw-bolder mb-1" th:text="${capsule.question}"></h1>
+            <div class="text-muted fst-italic mb-2" th:text="|Posted on ${#temporals.format(capsule.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
+          </header>
+          <section class="mb-5">
+            <p class="fs-5 mb-4" th:text="${capsule.answer}"></p>
+          </section>
+        -->
+
+
+
+
+        <br>
+        <div class="chatbot-message">
+            오늘은 어떤 하루를 보내셨나요?
         </div>
+        <div class="user-message">
+            오늘은 조금 힘든 날이었어
+        </div>
+        <div class="chatbot-message">
+            저도 그런 날이 있습니다.
+            힘든 날이라면 일단 자신을 위로해주고 휴식을 취하는 것도 좋은 방법입니다.
+            무엇보다 중요한 것은 긍정적으로 생각하고 힘을 내는 것입니다.
+            앞으로 더 좋은 일들이 기다리고 있을 거라는 생각으로 오늘을 잘 마무리해보세요.
+            화이팅!
+        </div>
+        <div class="user-message">
+            고마워
+        </div>
+        <div class="chatbot-message">
+            아니에요, 제가 도와줄 수 있는게 있으면 언제든지 말씀해주세요.
+            다른 도움이 필요하신가요?
+        </div>
+
+
     </div>
 </div>
-<!-- Optional: Add a link to go back to the capsule list -->
-<a th:href="@{/capsules}">Back to Capsule List</a>
 </body>
+
 </html>
