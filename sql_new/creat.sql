@@ -16,6 +16,7 @@ CREATE TABLE qna (
 );
 
 CREATE TABLE emotion (
+    eid BIGINT NOT NULL AUTO_INCREMENT,
     emotion VARCHAR(100) NOT NULL,
     uid INT,
     emotionDate DATETIME NOT NULL,
