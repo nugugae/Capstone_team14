@@ -44,9 +44,9 @@ public class CapsuleViewController {
         User user = userService.findByEmail(email);
 
         // Fetch capsules by user ID
-        Map<LocalDate, List<CapsuleViewResponse>> capsules =
+        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate =
                 capsuleService.findAllByUserIdGroupedByDate(user.getUid());
-        model.addAttribute("capsules", capsules);
+        model.addAttribute("capsules", capsulesByDate);
 
         return "capsuleList";
     }
