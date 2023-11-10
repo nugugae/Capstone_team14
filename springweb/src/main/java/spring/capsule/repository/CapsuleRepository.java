@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface CapsuleRepository extends JpaRepository<Capsule, Long> {
 
     // Change the method signature to return an Optional<Capsule>
-    List<Capsule> findAllByQnadate(LocalDate date);
-    //Optional<Capsule> findByQnadate(LocalDate qnadate);
+    List<Capsule> findAllByUidAndQnadate(Long uid, LocalDate qnadate);
+
 }
