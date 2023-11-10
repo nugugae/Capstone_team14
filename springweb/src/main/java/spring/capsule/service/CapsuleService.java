@@ -23,7 +23,6 @@ public class CapsuleService {
 
     private final CapsuleRepository capsuleRepository;
     private final UserRepository userRepository;
-
     private User getUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
@@ -48,13 +47,13 @@ public class CapsuleService {
         return capsuleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
-
-    //    public Optional<Capsule> findByDate(LocalDate date) {
+//    public Optional<Capsule> findByDate(LocalDate date) {
 //        return capsuleRepository.findByQnadate(date);
 //    }
-    public List<Capsule> findAllByUidAndQnadate(Long userId, LocalDate date) {
-        return capsuleRepository.findAllByUidAndQnadate(userId, date);
+    public List<Capsule> findAllByDate(LocalDate date) {
+        return capsuleRepository.findAllByQnadate(date);
     }
+
 
 //    public List<Capsule> findByDate(LocalDate date) {
 //        return capsuleRepository.findByQnadate(date);
@@ -66,7 +65,6 @@ public class CapsuleService {
         capsule.setQnadate(date);
         return capsuleRepository.save(capsule);
     }
-
     public Map<LocalDate, List<CapsuleViewResponse>> findAllGroupedByDate() {
         List<Capsule> allCapsules = capsuleRepository.findAll();
         return allCapsules.stream()
@@ -74,19 +72,16 @@ public class CapsuleService {
                 .collect(Collectors.groupingBy(CapsuleViewResponse::getQnadate));
 
     }
-    // In CapsuleService.java
     @Transactional
-    public List<Capsule> saveOrUpdateCapsulesForUserAndDate(AddCapsuleRequest request, Long userId) {
+    public List<Capsule> saveOrUpdateTodayCapsule(AddCapsuleRequest request) {
         LocalDate today = LocalDate.now();
-        List<Capsule> capsules = capsuleRepository.findAllByUidAndQnadate(userId, today);
+        List<Capsule> capsules = capsuleRepository.findAllByQnadate(today);
 
         if (capsules.isEmpty()) {
-            // If no capsules are found for today and this user, create a new one
+            // If no capsules are found for today, create a new one
             Capsule newCapsule = new Capsule(today);
             newCapsule.addQuestion(request.getQuestion());
             newCapsule.addAnswer(request.getAnswer());
-            // Set the user for the new capsule
-            newCapsule.setUser(userRepository.getById(userId));
             // Save the new capsule
             capsuleRepository.save(newCapsule);
             // Add the new capsule to the list
@@ -104,6 +99,32 @@ public class CapsuleService {
         return capsules;
     }
 
+//    @Transactional
+//    public Capsule saveOrUpdateTodayCapsule(AddCapsuleRequest request) {
+//        LocalDate today = LocalDate.now();
+//        Capsule capsule = capsuleRepository.findAllByQnadate(today)
+//                .orElseGet(() -> new Capsule(today)); // Assuming there's a constructor in Capsule class that takes the date
+//
+//        // Assuming there are methods to add questions and answers to the capsule
+//        capsule.addQuestion(request.getQuestion());
+//        capsule.addAnswer(request.getAnswer());
+//
+//        return capsuleRepository.save(capsule);
+//    }
 
 
 }
+//    public void delete(long id) {
+//        capsuleRepository.deleteById(id);
+//    }
+//
+//    @Transactional
+//    public Capsule update(long id, UpdateCapsuleRequest request) {
+//        Capsule capsule = capsuleRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+//
+//        capsule.update(request.getTitle(), request.getContent());
+//
+//        return capsule;
+//    }
+//}
