@@ -55,9 +55,23 @@ public class CapsuleService {
     }
 
 
-//    public List<Capsule> findByDate(LocalDate date) {
-//        return capsuleRepository.findByQnadate(date);
-//    }
+    public Map<LocalDate, List<CapsuleViewResponse>> findAllByUserIdGroupedByDate(Long userId) {
+        // Use the repository to fetch capsules by user ID
+        List<Capsule> capsules = capsuleRepository.findAllByUserId(userId);
+
+        // Group capsules by date
+        return capsules.stream()
+                .collect(Collectors.groupingBy(
+                        Capsule::getQnadate,
+                        Collectors.mapping(CapsuleViewResponse::new, Collectors.toList())
+                ));
+    }
+
+    // Implement this method to find capsules by user ID and date
+    public List<Capsule> findAllByUserIdAndDate(Long userId, LocalDate date) {
+        // Use the repository to fetch capsules by user ID and date
+        return capsuleRepository.findAllByUserIdAndDate(userId, date);
+    }
 
     public Capsule saveWithDate(AddCapsuleRequest request, LocalDate date, Long userId) {
         User user = getUserById(userId);

@@ -38,23 +38,35 @@ public class CapsuleViewController {
 
     // 전체 캡슐
     @GetMapping("/capsules")
-    public String getCapsules(Model model) {
-        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate = capsuleService.findAllGroupedByDate();
-        model.addAttribute("capsulesByDate", capsulesByDate);
+    public String getCapsules(Model model, Principal principal) {
+        // Get logged-in user's email or username from principal
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Fetch capsules by user ID
+        Map<LocalDate, List<CapsuleViewResponse>> capsules =
+                capsuleService.findAllByUserIdGroupedByDate(user.getUid());
+        model.addAttribute("capsules", capsules);
 
         return "capsuleList";
     }
 
     //해당 날짜 보기
     @GetMapping("/capsule/{date}")
-    public String getCapsulesByDate(@PathVariable String date, Model model) {
+    public String getCapsulesByDate(@PathVariable String date, Model model, Principal principal) {
         LocalDate localDate = LocalDate.parse(date);
-        List<Capsule> capsules = capsuleService.findAllByDate(localDate);
-        model.addAttribute("capsules", capsules.stream().map(CapsuleViewResponse::new).collect(Collectors.toList()));
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Fetch all capsules by date and user ID
+        List<Capsule> capsules = capsuleService.findAllByUserIdAndDate(user.getUid(), localDate);
+
+        // Pass the entire list of capsules to the view, even if it's empty
+        model.addAttribute("capsules", capsules);
+        model.addAttribute("date", date); // Pass the date to the model as well
 
         return "capsule";
     }
-
 
     //채팅
     @GetMapping("/capsule/chat")
