@@ -18,46 +18,49 @@
     <div class="capsule-container">
 
 
-        <!-- 
-            //모든 id다 가지고 오는 코드
-            <div class="capsule" th:each="entry : ${capsulesByDate}">
-            <div th:each="qna : ${entry.value}">
-                <a class = "list" th:href="@{'/capsule/' + ${qna.qnadate}}">
-                    <span th:text="'No.' + ${qna.qnaid}"></span><br>
-                    <span th:text="'DATE : ' + ${qna.qnadate}"></span>
-                </a>
+
+<!--         
+        //타임캡슐 적용 전    
+        <div class="capsule" th:each="entry, iterStat : ${capsulesByDate.entrySet()}">
+            <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
+                <div>
+                    <span th:text="'No.' + (${capsulesByDate.size() - iterStat.index})"></span><br>
+                    <span th:text="'DATE : ' + ${entry.key}"></span>
+                </div>
+            </a>
+        </div> -->
+
+        <div class="capsule-container">
+            <div th:each="entry, iterStat : ${capsulesByDate.entrySet()}">
+                <div th:if="${entry.key.isBefore(T(java.time.LocalDate).now().minusDays(7))}" class="capsule" >
+                    <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
+                        <div>
+                            <span th:text="'No.' + (${capsulesByDate.size() - iterStat.index})"></span><br>
+                            <span th:text="'DATE : ' + ${entry.key}"></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div th:if="${entry.key.isEqual(T(java.time.LocalDate).now().minusDays(7))}" class="capsule" >
+                    <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
+                        <div>
+                            <span th:text="'No.' + (${capsulesByDate.size() - iterStat.index})"></span><br>
+                            <span th:text="'DATE : ' + ${entry.key}"></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div th:if="${entry.key.isAfter(T(java.time.LocalDate).now().minusDays(7))}" class="capsule blocked-capsule" >
+                    <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
+                        <div>
+                            <span th:text="'No.' + (${capsulesByDate.size() - iterStat.index})"></span><br>
+                            <span th:text="'DATE : ' + ${entry.key}"></span>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div> -->
-
-        <div class="capsule" th:each="entry : ${capsulesByDate.entrySet()}">
-            <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
-                <div>
-                    <span th:text="'No.' + ${entry.value[0].qnaid}"></span><br>
-                    <span th:text="'DATE : ' + ${entry.key}"></span>
-                </div>
-            </a>
         </div>
-        <!-- 
-            //#dates.daysBetween가 타임리프랑 호환 문제 있는 듯
-        <div th:each="entry : ${capsulesByDate.entrySet()}" th:class="${#dates.daysBetween(#dates.createOrModify(#dates.createNow(), -7, null, null, null, null, null), #dates.parse(entry.key, 'yyyy-MM-dd')) >= 0 ? 'capsule blocked-capsule' : 'capsule'}">
-            <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
-                <div>
-                    <span th:text="'No.' + ${entry.value[0].qnaid}"></span><br>
-                    <span th:text="'DATE : ' + ${entry.key}"></span>
-                </div>
-            </a>
-        </div> -->
-
-
-        <!-- <div th:each="entry : ${capsulesByDate.entrySet()}" th:class="${entry.value[0].isWithinWeek ? 'capsule blocked-capsule' : 'capsule'}">
-            //isWithinWeek는 백엔드에서 7일 계산하는 메서드 이름 예시
-            <a class = "list" th:href="@{'/capsule/' + ${entry.key}}">
-                <div>
-                    <span th:text="'No.' + ${entry.value[0].qnaid}"></span><br>
-                    <span th:text="'DATE : ' + ${entry.key}"></span>
-                </div>
-            </a>
-        </div> -->
+        
 
 
 

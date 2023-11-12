@@ -32,6 +32,41 @@ a {
     text-decoration: none;
 }
 
+.list img {
+    width: 20px;
+    height: auto;
+    margin: 0px;
+  
+  }
+
+.back {
+    /* align-self: center;
+    justify-content :space-between ;
+    align-items:center ;
+    margin-bottom :160px ;
+    width :50% ;
+    border-radius : 10px;
+    vertical-align:middle;
+    overflow-y:auto;
+    flex-direction: column-reverse; */
+
+    width :40px ;
+    height: 40px;
+	padding: 0px;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    vertical-align:middle;
+
+    &:hover {
+        box-shadow: 0 0 2px 0 #689e68 inset, 0 0 5px 1px #689e68;
+        background-color :#FFFFFF ; /* white */
+        color :#689e68 ; /* green text */
+      }
+ 
+ }
+
+ 
 .chat-container {
 
     display: flex;
@@ -104,6 +139,16 @@ a {
     margin-right: 100px;
     font-family: 'Amatic SC', cursive;
 }
+.webTitle_capsule2 {
+    align-self: center;
+	color : #ac6e94;
+	font-size :1.2rem ;
+    justify-content: center;
+    align-items: center;
+    text-align: right;            /* text-align 추가 */
+    margin-left: auto;            /* margin-left 추가 */
+    font-family: 'Amatic SC', cursive;
+}
 .webTitle_logs {
     align-self: center;
 	color : #ac6e94;
@@ -133,6 +178,18 @@ a {
     overflow-y:auto;
     flex-direction: column-reverse;
     padding: 10px;
+
+}
+
+#chat-log2 {
+    /* height: 700px; */
+    height: calc(100% - 200px); /* Adjust this value as needed */
+
+    overflow-y:auto;
+    flex-direction: column-reverse;
+    padding: 10px;
+
+    margin-bottom: 150px;
 }
 
 .chat-log::-webkit-scrollbar {
@@ -220,6 +277,7 @@ a {
    flex-direction: column-reverse;
 
 }
+
 
 #user-input {
    flex-grow :1 ;
@@ -342,7 +400,7 @@ button {
         border-width :2px ;
         border-style :solid ;
         border-color :#088A08 ; 
-        border-radius :5px ;
+        border-radius : 10px;
        }
 }
 .blocked-capsule {
