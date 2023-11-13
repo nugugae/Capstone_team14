@@ -30,7 +30,23 @@
                 오늘은 어떤 하루를 보내셨나요?
             </div>
             <input type="hidden" class="user-message" th:value="${capsule.answer}" />
+
+            <!-- 이전 대화 보기 -->
+            <div th:if="${capsules != null and not #lists.isEmpty(capsules)}">
+                <div th:each="capsule, iterStat : ${capsules}">
+                    <div>
+                        
+                        <div class="user-message"><span th:text="${capsule.answer}">Atext</span></div>
+                        <div class="chatbot-message"> <span th:text="${capsule.question}">Qtext</span></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+        
+
+
+        
 
 
         <form id='user-input-form'>

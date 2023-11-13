@@ -16,39 +16,57 @@
             </div>
         </a>
 
-        <!--capsule.qnaid로 들어갈 수 있음 mylog 에서 변경
-          <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
-          <header class="mb-4">
-            <h1 class="fw-bolder mb-1" th:text="${capsule.question}"></h1>
-            <div class="text-muted fst-italic mb-2" th:text="|Posted on ${#temporals.format(capsule.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
-          </header>
-          <section class="mb-5">
-            <p class="fs-5 mb-4" th:text="${capsule.answer}"></p>
-          </section>
-        -->
 
-        <br>
 
-        <!-- <div id="chat-messages">
-            <ul>
-                <li th:each="message : ${capsule.getMessages()}">
-                    <p><span th:text="${message.getRole()}"></span>: <span th:text="${message.getContent()}"></span></p>
-                </li>
-            </ul>
-        </div> -->
 
-                <!-- Capsule 정보 출력 -->
-                <div class="capsule-info">
-                    <h1 th:text="${capsule.question}" class="question"></h1>
-                    <p class="date" th:text="|Created on ${#temporals.format(capsule.qnadate, 'yyyy-MM-dd')}|"></p>
-                </div>
-        
-                <!-- 채팅 기록 출력 -->
-                <div class="chat-history">
-                    <div th:each="message : ${capsule.messages}">
-                        <div th:class="${message.role == 'user'} ? 'user-message' : 'chatbot-message'" th:text="${message.content}"></div>
+            <p class ="webTitle_capsule2">
+                DATE : <span th:text="${date}"></span>
+            </p>
+            <a class = "list" th:href="@{/capsules}">
+                <button class='back'>
+    
+                    <img th:src="@{/asset/list.png}" class="list-image"/>
+                </button>
+            </a>
+            <br><br><br>
+            <div th:if="${capsules == null or #lists.isEmpty(capsules)}">
+                <p>No conversations found for this date.</p>
+            </div>
+
+            
+
+        <div class="chat-log" id='chat-log2'>
+            <div class="chatbot-message">
+                오늘은 어떤 하루를 보내셨나요?
+            </div>
+
+            <div th:if="${capsules != null and not #lists.isEmpty(capsules)}">
+                <div th:each="capsule, iterStat : ${capsules}">
+                    <div>
+                        
+                        <div class="user-message"><span th:text="${capsule.answer}">Atext</span></div>
+                        <div class="chatbot-message"> <span th:text="${capsule.question}">Qtext</span></div>
                     </div>
                 </div>
+            </div>
+           
+            <br><br><br>
+
+        </div>
+        <!-- <a class = "list" th:href="@{/capsules}">
+            <button class='back'>
+
+                <img th:src="@{/asset/list.png}" class="list-image"/>
+            </button>
+        </a> -->
+
+        <!-- <button class='back'>
+            <a class = "list" th:href="@{/capsules}">
+                <div>
+                    Capsule List
+                </div>
+            </a>
+        </button> -->
 
   
 
@@ -57,6 +75,22 @@
 
     </div>
 </div>
+<script >
+
+
+
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.querySelector(".submit-button");
+    const chatLog = document.querySelector(".chat-log");
+
+            // Scroll
+    chatLog.scrollTop = chatLog.scrollHeight;
+    userInput.disabled = false;
+    sendButton.disabled = false;
+
+
+
+</script>
 </body>
 
 </html>
