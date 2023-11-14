@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="chat_meenso.css">
+    <title>chat</title>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div id="chat-box">
+            <a th:href="@{/home}">
+            <div id="header">
+                <img src="logo.png" alt="Logo Image" class="logo-image" style="width: 30%;">
+              <p class ="webTitle_chat">Chat</p>
+            
+            </div>
+            </a>
+            <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+                <!--으로 캡슐 생성 가능
+                <input type="hidden" id="capsule-id" th:value="${capsule.qnaid}">
+  
+                <header class="mb-4">
+                <input type="text" class="form-control" placeholder="질문" id="question" th:value="${capsule.question}">
+                </header>
+                <section class="mb-5">
+                <textarea class="form-control h-25" rows="10" placeholder="답변" id="answer" th:text="${capsule.answer}"></textarea>
+            -->
+          <br>
+  
+            <div class="chat-log" id='chat-log'>
+                <div class="chatbot-message">
+                    오늘은 어떤 하루를 보내셨나요?
+                </div>
+            
+                <!-- <div class="user-message">
+                    
+                </div> -->
+            </div>
+  
+  
+            <form id='user-input-form'>
+                <div class="user-input-container">
+                    <input type='text' id='user-input' class='user-input'  placeholder='Type your message here...' required />
+                    <button class= "submit-button" type='submit'>
+                        <img src="sendIcon.png" alt='Submit Image' class="Submit-image"/>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+  
+   <script>
+
+        const API_URL = 'https://api.openai.com/v1/chat/completions';
+        const API_URL2 = 'https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions';
+        const API_KEY = "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";
+  
+        const userInput = document.getElementById("user-input");
+        const sendButton = document.querySelector(".submit-button");
+        const chatLog = document.querySelector(".chat-log");
+        const resultContainer = document.getElementById('resultContainer');
+  
+        const system_prompt = [              
+            {"role": "system", "content": "You empathize with users and help the user take care of their minds."},
+            {"role": "system", "content": "If you don't understand what the user says, ask again carefully."},
+            {"role": "system", "content": "If you can guess what users feel, share the guess with the user."},
+            {"role": "system", "content": "If the user experiences an emotion, ask the user why they are feeling that emotion."},
+            {"role": "system", "content": "You should say it in 50 words."},
+            {"role": "system", "content": "You must say it in Korean."},
+        ]
+
+        const conversation = [
+            {"role": "assistant", "content": "오늘 하루는 어땠나요?"},
+        ]
+
+        /*
+        let emotion_data = {
+            messages: [
+
+            ],
+            model: "gpt-3.5-turbo-0613",
+            functions: [
+                {
+                    name: "get_emotion",
+                    description: "Read the chat data with the user and decide the user's overall emotion as one of 'joy', 'panic', 'anger', 'hurt', and 'sad'.",
+                    parameters:{
+                        
+                    }
+                }
+            ]            
+        }
+        */
+
+        /*
+        function get_emotion(apiKey, conversation){
+
+            let sentiment; 
+
+            fetch('https://api.openai.com/v1/engines/davinci/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    prompt: conversation.map(item => `${item.role}: ${item.content}`).join('\n'),
+                    max_tokens: 500,
+                    temperature: 0.5,
+                    stop: '\n'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('OpenAI API Response:', data); // Log the entire response for debugging
+                if (data && data.error) {
+                    console.error('OpenAI API Error:', data.error);
+                } else if (data && data.choices && data.choices.length > 0) {
+                    sentiment = data.choices[0].text;
+                    console.log('Sentiment:', sentiment);
+                } else {
+                    console.error('Error: Unexpected response format from OpenAI API');
+                }
+            })
+            .catch(error => {
+               console.error('Error:', error);
+            });
+
+            return sentiment;
+        }
+        */
+
+        async function getSentiment(api_key, text_json) {
+            const input = JSON.parse(text_json);
+            console.log("input: ", input);
+
+            // 사용자의 입력 텍스트를 추출
+            const userText = input
+                .filter(item => item.role == "user")
+                .map(item => ({"role": "user", "content": item.content }));
+
+            userText.push({"role":"system", "content": "Choose one emotion most relevant to the user's emotion among these emotions: joyful, happy, sad, depressed, angry, tired, neutral."});
+            console.log(userText);
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${api_key}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: userText,                     
+                    temperature: 0.5,
+                    max_tokens: 100,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0,
+                    stop: ["\n"]
+                })
+            });
+
+            const data = await response.json();
+
+           //console.log('data.choices[0].message.content', data.choices[0].message.content);
+ 
+            const sentiment = data.choices[0].message.content;
+            console.log(sentiment);
+            return sentiment;
+        }       
+
+        const generate = async () => {
+            const userMessage = userInput.value;
+            userInput.value = "";            
+            sendButton.disabled = true;
+            userInput.disabled = true;
+       
+            chatLog.innerHTML += `<div class="user-message">${userMessage}</div>`;
+            conversation.push({"role": "user", "content": userMessage});
+            userInput.value = "";
+            let botMessage = "";
+            
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "model": "gpt-3.5-turbo",
+                    "messages": system_prompt.concat(conversation),
+                    max_tokens: 1024,
+                    stream: true, 
+                }),
+            });
+            
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
+
+            const chatbotMessageDiv = document.createElement('div');
+            chatbotMessageDiv.className = 'chatbot-message';
+            chatLog.appendChild(chatbotMessageDiv);
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) {
+                    break;
+                }
+
+                const chunk = decoder.decode(value);
+                const lines = chunk.split("\n");
+
+                const parsedLines = lines
+                    .map((line) => line.replace(/^data: /, "").trim()) 
+                    .filter((line) => line !== "" && line !== "[DONE]") 
+                    .map((line) => JSON.parse(line)); 
+
+                for (const parsedLine of parsedLines) {
+
+                    const { choices } = parsedLine;
+                    const { delta } = choices[0];
+                    const { content } = delta;
+                    
+                    if (content) {
+                        botMessage += content;
+                        chatbotMessageDiv.textContent += content;
+                    }
+                }     
+
+            }
+            
+            console.log(botMessage);
+            conversation.push({"role":"assistant", "content": botMessage});
+
+            // conversation.push({"role":"system", "content": "Read the chat data with the user and decide the user's emotion as one of 'joy', 'panic', 'anger', 'hurt', and 'sad'."});
+            getSentiment(API_KEY, JSON.stringify(conversation));
+            //conversation.pop();
+
+            // Scroll
+            chatLog.scrollTop = chatLog.scrollHeight;
+            userInput.disabled = false;
+            sendButton.disabled = false;
+        };
+
+
+    sendButton.addEventListener('click',() => {
+        if (userInput.value.trim() !== '') {
+                sendButton.disabled = true;
+                generate();
+            } else {
+                sendButton.disabled = true;
+            }
+    });
+      
+</script>
+</body>
+</html>
