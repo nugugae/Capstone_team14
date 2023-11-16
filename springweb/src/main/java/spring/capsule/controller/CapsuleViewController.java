@@ -38,9 +38,15 @@ public class CapsuleViewController {
 
     // 전체 캡슐
     @GetMapping("/capsules")
-    public String getCapsules(Model model) {
-        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate = capsuleService.findAllGroupedByDate();
-        model.addAttribute("capsulesByDate", capsulesByDate);
+    public String getCapsules(Model model, Principal principal) {
+        // Get logged-in user's email or username from principal
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Fetch capsules by user ID
+        Map<LocalDate, List<CapsuleViewResponse>> capsules =
+                capsuleService.findAllByUserIdGroupedByDate(user.getUid());
+        model.addAttribute("capsules", capsules);
 
         return "capsuleList";
     }
@@ -61,6 +67,7 @@ public class CapsuleViewController {
 
         return "capsule";
     }
+  
     //감정
     @GetMapping("/emotions")
     public String getEmotions(Model model) {
