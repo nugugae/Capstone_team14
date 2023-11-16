@@ -11,11 +11,13 @@ import java.time.LocalDate;
 public class EmotionViewResponse {
     private Long mid;
     private String mood;
-    private LocalDate moodDate;
+    private LocalDate mdate;
 
     public EmotionViewResponse(Emotion emotion) {
         this.mid =emotion.getMid();
         this.mood = emotion.getMood();
-        this.moodDate =emotion.getMoodDate();
+        this.mdate =emotion.getMdate();
     }
+
 }
+

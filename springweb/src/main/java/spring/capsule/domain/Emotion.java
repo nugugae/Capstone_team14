@@ -31,19 +31,19 @@ public class Emotion {
     private User user;
 
     @CreatedDate
-    @Column(name = "moodDate")
-    private LocalDate moodDate;
+    @Column(name = "mdate")
+    private LocalDate mdate;
 
     //빌더 패턴으로 객체 생성
     @Builder
-    public Emotion(User user ,String mood ,LocalDate moodDate) {
+    public Emotion(User user ,String mood ,LocalDate mdate) {
         this.user = user;
         this.mood = mood;
-        this.moodDate = moodDate;
+        this.mdate = mdate;
     }
 
-    public void setMoodDate(LocalDate moodDate) {
-        this.moodDate = moodDate;
+    public void setMdate(LocalDate mdate) {
+        this.mdate = mdate;
     }
     public  void setUser(User user) {
         this.user = user;
