@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.TreeMap;
+import java.util.Comparator;
+
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +30,9 @@ public class CapsuleService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
     }
-
+    public List<Capsule> getChatHistoryByDateAndUser(Long userId, LocalDate date) {
+        return capsuleRepository.findAllByUserIdAndDate(userId, date);
+    }
     //캡슐추가 메서드
     public Capsule save(AddCapsuleRequest request, Long userId) {
         User user = getUserById(userId);
@@ -60,11 +65,24 @@ public class CapsuleService {
         List<Capsule> capsules = capsuleRepository.findAllByUserId(userId);
 
         // Group capsules by date
-        return capsules.stream()
+        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate = capsules.stream()
                 .collect(Collectors.groupingBy(
                         Capsule::getQnadate,
                         Collectors.mapping(CapsuleViewResponse::new, Collectors.toList())
                 ));
+
+//        // Group capsules by date
+//        return capsules.stream()
+//                .collect(Collectors.groupingBy(
+//                        Capsule::getQnadate,
+//                        Collectors.mapping(CapsuleViewResponse::new, Collectors.toList())
+//                ));
+
+        // Sort the map by date in reverse order
+        Map<LocalDate, List<CapsuleViewResponse>> sortedCapsulesByDate = new TreeMap<>(Comparator.reverseOrder());
+        sortedCapsulesByDate.putAll(capsulesByDate);
+
+        return sortedCapsulesByDate;
     }
 
     // Implement this method to find capsules by user ID and date

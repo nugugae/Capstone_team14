@@ -44,13 +44,12 @@ public class CapsuleViewController {
         User user = userService.findByEmail(email);
 
         // Fetch capsules by user ID
-        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate =
+        Map<LocalDate, List<CapsuleViewResponse>> sortedCapsulesByDate =
                 capsuleService.findAllByUserIdGroupedByDate(user.getUid());
-        model.addAttribute("capsulesByDate", capsulesByDate);
+        model.addAttribute("capsulesByDate", sortedCapsulesByDate);
 
         return "capsuleList";
     }
-
 
 
     //해당 날짜 보기
@@ -69,7 +68,14 @@ public class CapsuleViewController {
 
         return "capsule";
     }
+    //감정
+    @GetMapping("/emotions")
+    public String getEmotions(Model model) {
+        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate = capsuleService.findAllGroupedByDate();
+        model.addAttribute("capsulesByDate", capsulesByDate);
 
+        return "emotions";
+    }
     //채팅
     @GetMapping("/capsule/chat")
     public String newCapsule(@RequestParam(required = false) Long id, Model model) {
@@ -86,6 +92,8 @@ public class CapsuleViewController {
 
         return "chat";
     }
+
+//새 엔드포인트
 
 
 
