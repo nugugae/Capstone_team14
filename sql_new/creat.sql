@@ -24,4 +24,4 @@ CREATE TABLE emotion (
 );
 
 CREATE INDEX qna_ix1 ON qna (uid, qnadate);
-CREATE INDEX emotion_ix1 ON emotion (uid, emotionDate);
+CREATE INDEX emotion_ix1 ON emotion (uid, moodDate);
