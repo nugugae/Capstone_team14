@@ -13,7 +13,9 @@ import spring.capsule.domain.User;
 import spring.capsule.dto.AddCapsuleRequest;
 import spring.capsule.dto.CapsuleListViewResponse;
 import spring.capsule.dto.CapsuleViewResponse;
+import spring.capsule.dto.EmotionViewResponse;
 import spring.capsule.service.CapsuleService;
+import spring.capsule.service.EmotionService;
 import spring.capsule.service.UserService;
 
 import java.security.Principal;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 public class CapsuleViewController {
     private final CapsuleService capsuleService;
     private final UserService userService;
+    private final EmotionService emotionService;
     @Value("${openai.api.model}")
     private String model;
 
@@ -36,6 +39,17 @@ public class CapsuleViewController {
     @Value("${openai.api.key}")
     private String apikey;
 
+
+    //감정
+    @GetMapping("/emotions")
+    public String getEmotions(Model model, Principal principal) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+        Map<LocalDate, List<EmotionViewResponse>> emotions= emotionService.findAllByUserIdGroupedByDate(user.getUid());
+        model.addAttribute("emotions", emotions);
+
+        return "emotions";
+    }
     // 전체 캡슐
     @GetMapping("/capsules")
     public String getCapsules(Model model, Principal principal) {
@@ -66,15 +80,6 @@ public class CapsuleViewController {
         model.addAttribute("date", date); // Pass the date to the model as well
 
         return "capsule";
-    }
-  
-    //감정
-    @GetMapping("/emotions")
-    public String getEmotions(Model model) {
-        Map<LocalDate, List<CapsuleViewResponse>> capsulesByDate = capsuleService.findAllGroupedByDate();
-        model.addAttribute("capsulesByDate", capsulesByDate);
-
-        return "emotions";
     }
     //채팅
     @GetMapping("/capsule/chat")
