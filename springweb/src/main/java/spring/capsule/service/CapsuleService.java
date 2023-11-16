@@ -27,7 +27,9 @@ public class CapsuleService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
     }
-
+    public List<Capsule> getChatHistoryByDateAndUser(Long userId, LocalDate date) {
+        return capsuleRepository.findAllByUserIdAndDate(userId, date);
+    }
     //캡슐추가 메서드
     public Capsule save(AddCapsuleRequest request, Long userId) {
         User user = getUserById(userId);

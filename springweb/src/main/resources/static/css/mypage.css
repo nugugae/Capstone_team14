@@ -195,6 +195,7 @@ button {
 
 }
 
+
 .btn1 {
   border: none;
   display: block;
@@ -326,6 +327,51 @@ button {
   -webkit-transform: translateX(-15%) translateY(-25%) rotate(45deg);
   transform: translateX(-15%) translateY(-25%) rotate(45deg);
 }
+
+.round-button {
+  display: inline-block;
+  border-radius: 10px;
+  border-color: #5a885a;
+  overflow: hidden;
+  cursor: pointer;
+  align-self: right;
+  /* padding: 17px 60px; */
+  /* padding-top: -100px; */
+  height: 100px;
+  width: 100px;
+}
+
+.round-button img {
+  display: block;
+  height: 100px;
+  width: 100px;
+
+  object-fit: cover;
+  padding-top: -100px;
+  transition: all 150ms ease-in-out;
+  
+}
+
+.hover-image:hover {
+  content: url('/asset/emotion.png');
+  display: block;
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+  padding-top: -100px;
+}
+
+.hover {
+  transition: all 150ms ease-in-out;
+
+}
+
+.hover:hover {
+  transform: scale(0.6); /* 이미지 크기를 60%로 줄임 */
+  content: url('/asset/emotion.png');
+  display: block;
+}
+
 
 
 @media only screen and (max-width:600px){

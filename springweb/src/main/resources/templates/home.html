@@ -21,7 +21,12 @@
     </div>
     <div class="container" th:unless="${user.nickname == null}">
         <p class="textx">Welcome!</p>
-        <br><br>
+        
+        <div class="round-button" th:onclick="|location.href='@{/info}'|">
+            <img class="emotion-image hover" th:src="@{/asset/graph.png}" alt="emotion Image">
+        </div>
+        
+        
         <button class="btn1" th:onclick="|location.href='@{/capsule/chat}'|">
             <span>Go To Chat</span>
         </button>
@@ -33,7 +38,17 @@
         <button class="btn3" th:onclick="|location.href='@{/info}'|">
             <span>My Page</span>
         </button>
+
+        <!-- <div class="round-button" th:onclick="|location.href='@{/info}'|">
+            <img th:src="@{/asset/emotion_2.png}" alt="emotion Image" class="emotion-image">
+        </div> -->
+        
+
+
+
     </div>
+
+    
 </div>
 </body>
 </html>

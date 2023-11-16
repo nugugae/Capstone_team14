@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface CapsuleRepository extends JpaRepository<Capsule, Long> {
 
-    // Change the method signature to return an Optional<Capsule>
     List<Capsule> findAllByQnadate(LocalDate date);
     @Query("SELECT c FROM Capsule c WHERE c.user.uid = :userId")
     List<Capsule> findAllByUserId(@Param("userId") Long userId);
