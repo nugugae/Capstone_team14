@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "webuser")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -22,8 +22,8 @@ public class User implements UserDetails {//UserDetails 상속받아 인증객�
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private Long id;
+    @Column(name = "uid", updatable = false)
+    private Long uid;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -47,11 +47,20 @@ public class User implements UserDetails {//UserDetails 상속받아 인증객�
         this.role = role;
     }
 
+    //유저하고 캡슐하고 연결
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Capsule> capsules = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emotion> emotions = new ArrayList<>();
+
+
     //권한 반환
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("user"));
     }
+
 
 
     @Override
@@ -68,7 +77,7 @@ public class User implements UserDetails {//UserDetails 상속받아 인증객�
     public String getPassword() {//사용자 비번 반환
         return password;
     }
-//@Override
+    //@Override
     public UserRole getRole(){ return  role;}
 
     @Override

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chat App</title>
+</head>
+<body>
+<h1>Chat Room</h1>
+<div>
+    <form action="/send" method="post">
+        <input type="text" name="sender" placeholder="Your Name" required>
+        <input type="text" name="message" placeholder="Your Message" required>
+        <input type="hidden" name="timestamp" required>
+        <button type="submit">Send</button>
+    </form>
+</div>
+<div th:each="message : ${messages}">
+<!--    <p th:text="${message.sender + ': ' + message.message + ' (' + message.timestamp + ')'}"></p>-->
+</div>
+</body>
+</html>

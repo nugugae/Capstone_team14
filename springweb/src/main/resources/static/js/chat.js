@@ -1,116 +1,170 @@
-        const API_URL = 'https://api.openai.com/v1/chat/completions';
-        const API_KEY = "API_KEY";
 
-        const userInput = document.getElementById("user-input");
-        const sendButton = document.querySelector(".submit-button");
-        const chatLog = document.querySelector(".chat-log");
-        const resultContainer = document.getElementById('resultContainer');
 
-        const system_prompt = [
-            {"role": "system", "content": "You empathize with users and help the user take care of their minds. Answer in 50 words"},
-            {"role": "system", "content": "If you don't understand what the user says, ask again carefully.Answer in 50 words"},
-            {"role": "system", "content": "If you can guess what users feel, share the guess with the user.Answer in 50 words"},
-            {"role": "system", "content": "Before suggesting advice, you should ask if the user wants.Answer in 50 words"},
-            {"role": "system", "content": "You should give advice with numbering.Answer in 50 words"},
-            {"role": "system", "content": "If the user experiences an emotion, ask the user why they are feeling that emotion.Answer in 50 words"},
-            {"role": "system", "content": "You must say it in 50 words."},
-            {"role": "system", "content": "You must say it in Korean.Answer in 50 words"},
-        ]
 
-        const conversation = [
-            {"role": "assistant", "content": "오늘 하루는 어땠나요?"},
-        ]
+    // API 설정을 읽어옵니다.
+    const apiConfig = document.getElementById('api-config');
+    API_URL = apiConfig.dataset.url || API_URL;
+    API_MODEL = apiConfig.dataset.model || API_MODEL;
+    API_KEY = apiConfig.dataset.key || API_KEY;
 
-        const generate = async () => {
-            const userMessage = userInput.value;
-            userInput.value = "";
-            sendButton.disabled = true;
-            userInput.disabled = true;
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.querySelector(".submit-button");
+    const chatLog = document.querySelector(".chat-log");
+    const system_prompt = [
+        {"role": "system", "content": "You empathize with users and help the user take care of their minds."},
+        {"role": "system", "content": "If you don't understand what the user says, ask again carefully."},
+        {"role": "system", "content": "If you can guess what users feel, share the guess with the user."},
+        {"role": "system", "content": "Before suggesting advice, you should ask if the user wants."},
+        {"role": "system", "content": "You should give advice with numbering."},
+        {"role": "system", "content": "If the user experiences an emotion, ask the user why they are feeling that emotion."},
+        {"role": "system", "content": "You must say it in 50 words."},
+        {"role": "system", "content": "You must say it in Korean."},
+    ]
 
-            chatLog.innerHTML += `<div class="user-message">${userMessage}</div>`;
-            conversation.push({"role": "user", "content": userMessage});
-            userInput.value = "";
-            let botMessage = "";
-
-            const response = await fetch(API_URL, {
+    const conversation = [
+        {"role": "assistant", "content": "오늘 하루는 어땠나요?"}
+    ]
+    const saveConversationToCapsule = async (answer, question) => {
+        // Replace '/capsule/chat' with your actual endpoint for saving the conversation
+        try {
+            const response = await fetch('/capsule/chat', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${API_KEY}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "model": "gpt-3.5-turbo",
-                    "messages": system_prompt.concat(conversation),
-                    max_tokens: 1024,
-                    stream: true,
+                    question: question,
+                    answer: answer
                 }),
             });
+        // Check for a 201 Created status which indicates successful creation
+        if (response.status === 201) {
+            console.log('Conversation saved successfully.');
+            const data = await response.json();  // If you need the created capsule's data
+            console.log(data);  // Log or process the data as needed
+        } else {
+            console.error('Error saving conversation:', response.status, response.statusText);
+            // Optionally, you can handle different types of errors based on the status code
+        }
+    } catch (error) {
+        console.error('Error during fetch:', error);
+        // Handle network errors or other fetch issues
+    }
+    };
+    const generate = async () => {
+        const answer = userInput.value;
+        userInput.value = "";
+        sendButton.disabled = true;
+        userInput.disabled = true;
 
-            /*.then(response => response.json())
-            .then(data => {
-            const botMessage = data.choices[0].message.content;
+        chatLog.innerHTML += `<div class="user-message">${answer}</div>`;
+        conversation.push({"role": "user", "content": answer});
+        userInput.value = "";
+        let question = "";
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization':`Bearer ${API_KEY}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "model": API_MODEL,
+                "messages": system_prompt.concat(conversation),
+                max_tokens: 1024,
+                stream: true,
+            }),
+        });
 
-            const chatbotMessages = chatLog.querySelectorAll('.chatbot-message');
-            chatbotMessages[chatbotMessages.length - 1].remove();
+        /*.then(response => response.json())
+        .then(data => {
+        const question = data.choices[0].message.content;
 
-            chatLog.innerHTML += `<div class="chatbot-message">${botMessage}</div>`; */
+        const chatquestions = chatLog.querySelectorAll('.chatbot-message');
+        chatquestions[chatquestions.length - 1].remove();
+
+        chatLog.innerHTML += `<div class="chatbot-message">${question}</div>`; */
 
 
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder("utf-8");
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
 
-            const chatbotMessageDiv = document.createElement('div');
-            chatbotMessageDiv.className = 'chatbot-message';
-            chatLog.appendChild(chatbotMessageDiv);
+        const chatquestionDiv = document.createElement('div');
+        chatquestionDiv.className = 'chatbot-message';
+        chatLog.appendChild(chatquestionDiv);
 
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) {
-                    break;
-                }
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+                break;
+            }
 
-                const chunk = decoder.decode(value);
-                const lines = chunk.split("\n");
+            const chunk = decoder.decode(value);
+            const lines = chunk.split("\n");
 
-                const parsedLines = lines
-                    .map((line) => line.replace(/^data: /, "").trim())
-                    .filter((line) => line !== "" && line !== "[DONE]")
-                    .map((line) => JSON.parse(line));
+            const parsedLines = lines
+                .map((line) => line.replace(/^data: /, "").trim())
+                .filter((line) => line !== "" && line !== "[DONE]")
+                .map((line) => JSON.parse(line));
 
-                for (const parsedLine of parsedLines) {
+            for (const parsedLine of parsedLines) {
 
-                    const { choices } = parsedLine;
-                    const { delta } = choices[0];
-                    const { content } = delta;
-                    if (content) {
-                        botMessage += content;
-                        chatbotMessageDiv.textContent += content;
-                    }
-
+                const { choices } = parsedLine;
+                const { delta } = choices[0];
+                const { content } = delta;
+                if (content) {
+                    question += content;
+                    chatquestionDiv.textContent += content;
                 }
 
             }
 
-            console.log(botMessage);
-            conversation.push({"role":"assistant", "content": botMessage});
+        }
+
+        console.log(question);
+        conversation.push({"role":"assistant", "content": question});
+
+        // Save the conversation after the bot message is obtained
+        await saveConversationToCapsule(answer, question);
 
 
-                // Scroll
-                chatLog.scrollTop = chatLog.scrollHeight;
-                userInput.disabled = false;
-                sendButton.disabled = false;
-        };
+        // Scroll
+        chatLog.scrollTop = chatLog.scrollHeight;
+        userInput.disabled = false;
+        sendButton.disabled = false;
+    };
+
+
+    // const saveanswer = async (message) => {
+    //     const response = await fetch('/chat', { //url 백에서 바꿔서 연동 & 엔드포인트 설정
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ content: message }),
+    //     });
+    //
+    //     if (response.status === 200) {
+    //         console.log('User message saved successfully.');
+    //     } else {
+    //         console.error('Error saving user message.');
+    //     }
+    // };
 
 
 
-
-    sendButton.addEventListener('click',() => {
+    sendButton.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent the form from submitting the traditional way
         if (userInput.value.trim() !== '') {
-                sendButton.disabled = false;
-                generate();
-
-            } else {
-                sendButton.disabled = true;
-            }
+            generate();
+        }
+        // sendButton.addEventListener('click',() => {
+        //     if (userInput.value.trim() !== '') {
+        //         sendButton.disabled = false;
+        //         generate();
+        //
+        //     } else {
+        //         sendButton.disabled = true;
+        //     }
 
     });
+

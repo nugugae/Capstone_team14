@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import spring.capsule.service.UserDetailService;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+//import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 @RequiredArgsConstructor
 @Configuration
@@ -24,9 +24,8 @@ public class WebSecurityConfig {//page210
     @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
-                .requestMatchers(toH2Console())
                 .requestMatchers("/static/**");
-    }
+    }//.requestMatchers(toH2Console())
 
     //특정HTTP요청에 대한 웹 기반 보안 구성
     @Bean

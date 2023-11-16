@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url(https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700);
+@import url('https://fonts.googleapis.com/css2?&family=Hi+Melody&family=Nanum+Pen+Script&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 5px;
+    /*
+    background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    */ 
+    background-attachment: fixed;
+    border: 0px;
+  }
+
+a {
+   text-decoration: none;
+ }
+
+#header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; 
+    
+}
+
+.webTitle_logs {
+    align-self: center;
+	color : #ac6e94;
+	font-size :3.5rem ;
+    margin-left: -10px;
+    margin-right: 100px;
+    font-family: 'Amatic SC', cursive;
+}
+
+.logo-image {
+
+    width: 30%;
+    height: auto;
+    margin-right: 10px; 
+    display: block;
+    margin-left: auto;
+    margin-right: 10px;
+    max-width: 100px;
+    min-width: 30px;
+
+ }
+
+ 
+.chat-container {
+
+    display: flex; /*자식요소 행열 배치*/
+    flex-direction: column;  /*자식요소 열(세로) 배치*/
+    justify-content: center;  /*자식요소 세로 중앙 배치*/
+    align-items: center;  /*자식요소 가로 중앙 배치*/
+
+    border: none;  /*테두리 없음*/
+    padding-left : 20px;  /*좌측 여백 */
+    padding-right : 40px; /*우측 여백*/
+    padding-bottom: 30px;  /*아래쪽 여백*/
+    /* border-color: black;  */
+  	/* border-radius: 5px ;   */
+}
+
+.capsule-container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    /*border: solid 1px;*/
+    border:none;
+    padding: 20px;
+    border-color: #78c7d2;
+    border-radius: 50px 50px 50px 50px ;
+}
+
+
+#chat-box {
+  height : 600px ;
+  width : 400px ;
+  font-family: 'Nanum Pen Script', cursive;
+  font-weight: 700;
+  font-size: large;
+  border-color : #689e68 ;
+
+  padding-left :20px ;
+  padding-right :20px ;
+
+}
+
+#chat-log {
+    /* height: 700px; */
+    height: calc(100% - 120px); /* Adjust this value as needed */
+
+    overflow-y:auto;
+    flex-direction: column-reverse;
+    padding: 10px;
+
+}
+
+
+
+button {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #689e68;
+    border-radius: 0.6em;
+    color: #689e68;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    margin: 20px;
+    padding: 1.2em 2.8em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+
+    &:hover,
+    &:focus {
+      color: #fff;
+      outline: 0;
+    }
+}
+
+
+
+.capsule {
+    font-family: 'Josefin Slab', serif;
+    font-weight: 900;
+	background-color:#FFFFFF;
+	color:#689e68;
+    width: 100%;
+
+	align-self:flex-start;
+	max-width : 100%;
+	padding:10px;
+    margin-top  : 3px ;
+	margin-bottom  : 3px ;
+
+
+	border-radius : 10px;
+	border: 2px solid #689e68;
+
+    &:hover {
+        box-shadow: 0 0 2px 0 #155e27 inset, 0 0 5px 1px #155e27;
+        color: #155e27; 
+        background-color: #FFFFFF; 
+        border-width :2px ;
+        border-style :solid ;
+        border-color :#088A08 ; 
+        border-radius : 10px;
+       }
+}
+
+.btn {
+    border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Amatic SC', cursive;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.3rem;
+    background-color: #584737;
+    padding: 17px 60px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+    width: 100%;
+  }
+
+  .btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 490%;
+    width: 140%;
+    background: #78c7d2;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  }
+
+  .btn:hover:after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  }
+
+
+  #weekEmotionChart {
+    width: 80%; /*너비를 부모 요소의 80%*/
+    margin: 20px auto; /*위아래 여백 20px, 좌우는 자동 여백 조정하여 수평 가운데 정렬*/
+    display: flex; /* 수평으로 배치 */
+    flex-wrap: nowrap; /* 줄바꿈 방지 */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bar { 
+    height: 100px; /*높이 100px*/
+    width : 125px; /*너비 125px*/
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center; 
+  }
+
+  .happy-bar {
+    background: linear-gradient(to right, rgba(255, 182, 119, 0.7), rgba(255, 182, 119, 1));
+    border: 10px solid rgba(255, 182, 119, 1);
+  }
+
+  .fine-bar {
+    background: linear-gradient(to right, rgba(155, 212, 173, 0.7), rgba(155, 212, 173, 1));
+    border: 10px solid rgba(155, 212, 173, 1);
+  }
+
+  .angry-bar {
+    background: linear-gradient(to right, rgba(248, 128, 146, 0.7), rgba(248, 128, 146, 1));
+    border: 10px solid rgba(248, 128, 146, 1);
+  }
+
+  .sad-bar {
+    background: linear-gradient(to right, rgba(141, 182, 233, 0.7), rgba(141, 182, 233, 1));
+    border: 10px solid rgba(141, 182, 233, 1);
+  }
+
+  .depressed-bar {
+    background: linear-gradient(to right, rgba(187, 172, 224, 0.7), rgba(187, 172, 224, 1));
+    border: 10px solid rgba(187, 172, 224, 1);
+  }
+
+  .neutral-bar {
+    background: linear-gradient(to right, rgba(255, 236, 152, 0.7), rgba(255, 236, 152, 1));
+    border: 10px solid rgba(255, 236, 152, 1);
+  }
+
+  .bar img {
+    position: relative; /*요소의 위치 상대적*/
+    max-width: 75%; /* 이미지의 최대 너비 부모 요소의 50% */
+    max-height: 75%; /* 이미지의 최대 높이 부모 요소의 50% */
+    object-fit: cover; /* 이미지가 요소를 완전히 덮도록*/
+}
+
+/*이미지는 로컬파일에서 상대경로로 불러오기*/
+.happy-bar img {
+    background-image: url('./asset/emoji/happy.png');
+}
+
+.fine-bar img {
+    background-image: url('./asset/emoji/fine.png');
+}
+
+.sad-bar img {
+    background-image: url('./asset/emoji/sad.png');
+}
+
+.angry-bar img {
+    background-image: url('./asset/emoji/angry.png');
+}
+
+.neutral-bar img {
+    background-image: url('./asset/emoji/nuetral.png');
+}
+
+.depressed-bar img {
+    background-image: url('./asset/emoji/depressed.png');
+}
+
+  .bar:first-child { /* 첫 번째 끝의 왼쪽 위, 아래 테두리만 둥글게 */
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  .bar:last-child { /* 마지막 오른쪽 위, 아래 테두리만 둥글게 */
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+
+h1{
+  font-family: 'Nanum Pen Script'; /*제목 폰트 설정*/
+}

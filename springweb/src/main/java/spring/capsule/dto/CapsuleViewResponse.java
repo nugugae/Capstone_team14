@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import spring.capsule.domain.Capsule;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
@@ -12,12 +12,12 @@ public class CapsuleViewResponse {
     private Long qnaid;
     private String question;
     private String answer;
-    private LocalDateTime createdAt;
+    private LocalDate qnadate;
 
     public CapsuleViewResponse(Capsule capsule) {
         this.qnaid = capsule.getQnaid();
         this.question = capsule.getQuestion();
         this.answer = capsule.getAnswer();
-        this.createdAt = capsule.getCreatedAt();
+        this.qnadate = capsule.getQnadate();
     }
 }

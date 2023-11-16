@@ -1,0 +1,14 @@
+
+
+spring:
+  # DB 접속 정보 설정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/sogeun
+    username: root
+    password: root
+  # JPA 설정
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

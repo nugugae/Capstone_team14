@@ -24,7 +24,7 @@ public class UserService {//213
                 .nickname(dto.getNickname())
                 .password(bCryptPasswordEncoder.encode(dto.getPassword()))
                 .role(UserRole.USER)
-                .build()).getId();
+                .build()).getUid();
     }
 
     //jwt 토큰서비스 추가 246
