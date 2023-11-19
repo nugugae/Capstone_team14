@@ -48,7 +48,7 @@ public class CapsuleViewController {
         Map<LocalDate, List<EmotionViewResponse>> emotions= emotionService.findAllByUserIdGroupedByDate(user.getUid());
         model.addAttribute("emotions", emotions);
 
-        return "emotions";
+        return "emotion";
     }
     // 전체 캡슐
     @GetMapping("/capsules")
