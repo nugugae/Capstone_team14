@@ -9,11 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import spring.capsule.domain.Capsule;
+import spring.capsule.domain.Emotion;
 import spring.capsule.domain.User;
-import spring.capsule.dto.AddCapsuleRequest;
-import spring.capsule.dto.CapsuleListViewResponse;
-import spring.capsule.dto.CapsuleViewResponse;
-import spring.capsule.dto.EmotionViewResponse;
+import spring.capsule.dto.*;
 import spring.capsule.service.CapsuleService;
 import spring.capsule.service.EmotionService;
 import spring.capsule.service.UserService;
@@ -46,7 +44,23 @@ public class CapsuleViewController {
         String email = principal.getName();
         User user = userService.findByEmail(email);
         Map<LocalDate, List<EmotionViewResponse>> emotions= emotionService.findAllByUserIdGroupedByDate(user.getUid());
-        model.addAttribute("emotions", emotions);
+        LocalDate today = LocalDate.now();
+        LocalDate weekAgo = today.minusDays(7);
+        LocalDate monthAgo = today.minusDays(30);
+
+        List<String> lastWeekEmotions = emotions.entrySet().stream()
+                .filter(entry -> !entry.getKey().isBefore(weekAgo) && entry.getKey().isBefore(today))
+                .flatMap(entry -> entry.getValue().stream())
+                .map(EmotionViewResponse::getMood)
+                .collect(Collectors.toList());
+
+        List<String> lastMonthEmotions= emotions.entrySet().stream()
+                .filter(entry -> !entry.getKey().isBefore(monthAgo) && entry.getKey().isBefore(today))
+                .flatMap(entry -> entry.getValue().stream())
+                .map(EmotionViewResponse::getMood)
+                .collect(Collectors.toList());
+        model.addAttribute("lastWeekEmotions", lastWeekEmotions);
+        model.addAttribute("lastMonthEmotions", lastMonthEmotions);
 
         return "emotion";
     }
@@ -58,13 +72,12 @@ public class CapsuleViewController {
         User user = userService.findByEmail(email);
 
         // Fetch capsules by user ID
-        Map<LocalDate, List<CapsuleViewResponse>> capsules =
+        Map<LocalDate, List<CapsuleViewResponse>> sortedCapsulesByDate =
                 capsuleService.findAllByUserIdGroupedByDate(user.getUid());
-        model.addAttribute("capsules", capsules);
+        model.addAttribute("capsulesByDate", sortedCapsulesByDate);
 
         return "capsuleList";
     }
-
     //해당 날짜 보기
     @GetMapping("/capsule/{date}")
     public String getCapsulesByDate(@PathVariable String date, Model model, Principal principal) {
@@ -83,38 +96,48 @@ public class CapsuleViewController {
     }
     //채팅
     @GetMapping("/capsule/chat")
-    public String newCapsule(@RequestParam(required = false) Long id, Model model) {
-        if (id == null) {
-            model.addAttribute("capsule", new CapsuleViewResponse());
-
-            model.addAttribute("model", this.model);
-            model.addAttribute("apiURL", this.apiURL);
-            model.addAttribute("apikey", this.apikey);
-        } else {
+    public String getChat(@RequestParam(required = false) Long id, Model model, Principal principal) {
+        if (id != null) {
+            // ID로 캡슐 조회
             Capsule capsule = capsuleService.findById(id);
             model.addAttribute("capsule", new CapsuleViewResponse(capsule));
+        } else {
+            // 새 캡슐 생성
+            model.addAttribute("capsule", new CapsuleViewResponse());
         }
+
+        // 현재 사용자의 이메일 또는 사용자 이름 가져오기
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // 현재 날짜로 채팅 내용 조회
+        LocalDate today = LocalDate.now();
+        List<Capsule> todaysChat = capsuleService.findChatByDate(user.getUid(), today);
+        model.addAttribute("todaysChat", todaysChat);
+
+        // 추가적인 모델 속성
+        model.addAttribute("model", this.model);
+        model.addAttribute("apiURL", this.apiURL);
+        model.addAttribute("apikey", this.apikey);
 
         return "chat";
     }
-
-//새 엔드포인트
-
 
 
     @PostMapping("/capsule/chat")
     public ResponseEntity<Capsule> saveCapsule(@RequestBody AddCapsuleRequest request, Principal principal) {
         User user = userService.findByEmail(principal.getName());
-
-        Capsule savedCapsule = capsuleService.save(request,user.getUid());
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedCapsule);
-
+        Capsule savedCapsule = capsuleService.save(request, user.getUid());
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCapsule);
     }
 
+    @PostMapping("/capsule/saveSentiment")
+    public ResponseEntity<Emotion> saveEmotion(@RequestBody AddCapsuleRequest request, Principal principal) {
+        User user = userService.findByEmail(principal.getName());
+        Emotion savedEmotion = emotionService.save(request, user.getUid());
 
-
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedEmotion);
+    }
 
 
 }

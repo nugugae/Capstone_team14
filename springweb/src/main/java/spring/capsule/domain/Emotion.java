@@ -1,7 +1,9 @@
 package spring.capsule.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,12 +24,14 @@ public class Emotion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mid", updatable = false)
     private Long mid;
-    @Column(name = "mood")
+    @Column(name = "mood")//, nullable = false)
+    @NotNull(message = "Mood cannot be null")
     private String mood;
 
     //유저와 연결
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uid")
+    @JsonBackReference
     private User user;
 
     @CreatedDate
@@ -50,7 +54,9 @@ public class Emotion {
         user.getEmotions().add(this);
 
     }
-
+    public void setMood(String mood) {
+        this.mood = mood;
+    }
 
 
 }

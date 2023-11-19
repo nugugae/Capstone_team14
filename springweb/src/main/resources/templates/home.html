@@ -22,7 +22,7 @@
     <div class="container" th:unless="${user.nickname == null}">
         <p class="textx">Welcome!</p>
         
-        <div class="round-button" th:onclick="|location.href='@{/info}'|">
+        <div class="round-button" th:onclick="|location.href='@{/emotions}'|">
             <img class="emotion-image hover" th:src="@{/asset/graph.png}" alt="emotion Image">
         </div>
         
