@@ -1,7 +1,9 @@
 package spring.capsule.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,35 +24,39 @@ public class Emotion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mid", updatable = false)
     private Long mid;
-    @Column(name = "mood")
+    @Column(name = "mood")//, nullable = false)
+    @NotNull(message = "Mood cannot be null")
     private String mood;
 
     //유저와 연결
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uid")
+    @JsonBackReference
     private User user;
 
     @CreatedDate
-    @Column(name = "moodDate")
-    private LocalDate moodDate;
+    @Column(name = "mdate")
+    private LocalDate mdate;
 
     //빌더 패턴으로 객체 생성
     @Builder
-    public Emotion(User user ,String mood ,LocalDate moodDate) {
+    public Emotion(User user ,String mood ,LocalDate mdate) {
         this.user = user;
         this.mood = mood;
-        this.moodDate = moodDate;
+        this.mdate = mdate;
     }
 
-    public void setMoodDate(LocalDate moodDate) {
-        this.moodDate = moodDate;
+    public void setMdate(LocalDate mdate) {
+        this.mdate = mdate;
     }
     public  void setUser(User user) {
         this.user = user;
         user.getEmotions().add(this);
 
     }
-
+    public void setMood(String mood) {
+        this.mood = mood;
+    }
 
 
 }

@@ -12,13 +12,16 @@ import java.util.List;
 @Repository
 public interface EmotionRepository extends JpaRepository<Emotion, Long> {
 
-    List<Emotion> findAllByMoodDate(LocalDate date);
+    List<Emotion> findAllByMdate(LocalDate date);
 
     @Query("SELECT e FROM Emotion e WHERE e.user.uid = :userId")
     List<Emotion> findAllByUserId(@Param("userId") Long userId);
 
     // JPA Query to find capsules by user ID and date
-    @Query("SELECT e FROM Emotion e WHERE e.user.uid = :userId AND e.moodDate = :date")
+    @Query("SELECT e FROM Emotion e WHERE e.user.uid = :userId AND e.mdate = :date")
     List<Emotion> findAllByUserIdAndDate(@Param("userId") Long userId, @Param("date") LocalDate date);
+
+
+
 
 }

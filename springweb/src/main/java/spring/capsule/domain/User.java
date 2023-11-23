@@ -1,6 +1,7 @@
 package spring.capsule.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Table(name = "webuser")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -52,8 +54,8 @@ public class User implements UserDetails {//UserDetails 상속받아 인증객�
     private List<Capsule> capsules = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Emotion> emotions = new ArrayList<>();
-
 
     //권한 반환
     @Override

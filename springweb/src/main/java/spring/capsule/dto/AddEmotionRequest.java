@@ -14,12 +14,12 @@ import java.time.LocalDate;
 @Getter
 public class AddEmotionRequest {
     private String mood;
-    private LocalDate moodDate;
+    private LocalDate mdate;
     public Emotion toEntity(User user){
         return Emotion.builder()
                 .user(user)
                 .mood(mood)
-                .moodDate(moodDate)
+                .mdate(mdate)
                 .build();
     }
 }

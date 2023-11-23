@@ -18,8 +18,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.TreeMap;
 import java.util.Comparator;
-
-
 @RequiredArgsConstructor
 @Service
 public class CapsuleService {
@@ -30,9 +28,10 @@ public class CapsuleService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
     }
-    public List<Capsule> getChatHistoryByDateAndUser(Long userId, LocalDate date) {
+    public List<Capsule> findChatByDate(Long userId, LocalDate date) {
         return capsuleRepository.findAllByUserIdAndDate(userId, date);
     }
+
     //캡슐추가 메서드
     public Capsule save(AddCapsuleRequest request, Long userId) {
         User user = getUserById(userId);
@@ -52,15 +51,8 @@ public class CapsuleService {
         return capsuleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
-//    public Optional<Capsule> findByDate(LocalDate date) {
-//        return capsuleRepository.findByQnadate(date);
-//    }
-    public List<Capsule> findAllByDate(LocalDate date) {
-        return capsuleRepository.findAllByQnadate(date);
-    }
 
-
-    public Map<LocalDate, List<CapsuleViewResponse>> findAllByUserIdGroupedByDate(Long userId) {
+     public Map<LocalDate, List<CapsuleViewResponse>> findAllByUserIdGroupedByDate(Long userId) {
         // Use the repository to fetch capsules by user ID
         List<Capsule> capsules = capsuleRepository.findAllByUserId(userId);
 
@@ -70,13 +62,6 @@ public class CapsuleService {
                         Capsule::getQnadate,
                         Collectors.mapping(CapsuleViewResponse::new, Collectors.toList())
                 ));
-
-//        // Group capsules by date
-//        return capsules.stream()
-//                .collect(Collectors.groupingBy(
-//                        Capsule::getQnadate,
-//                        Collectors.mapping(CapsuleViewResponse::new, Collectors.toList())
-//                ));
 
         // Sort the map by date in reverse order
         Map<LocalDate, List<CapsuleViewResponse>> sortedCapsulesByDate = new TreeMap<>(Comparator.reverseOrder());
@@ -131,32 +116,6 @@ public class CapsuleService {
         return capsules;
     }
 
-//    @Transactional
-//    public Capsule saveOrUpdateTodayCapsule(AddCapsuleRequest request) {
-//        LocalDate today = LocalDate.now();
-//        Capsule capsule = capsuleRepository.findAllByQnadate(today)
-//                .orElseGet(() -> new Capsule(today)); // Assuming there's a constructor in Capsule class that takes the date
-//
-//        // Assuming there are methods to add questions and answers to the capsule
-//        capsule.addQuestion(request.getQuestion());
-//        capsule.addAnswer(request.getAnswer());
-//
-//        return capsuleRepository.save(capsule);
-//    }
 
 
 }
-//    public void delete(long id) {
-//        capsuleRepository.deleteById(id);
-//    }
-//
-//    @Transactional
-//    public Capsule update(long id, UpdateCapsuleRequest request) {
-//        Capsule capsule = capsuleRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-//
-//        capsule.update(request.getTitle(), request.getContent());
-//
-//        return capsule;
-//    }
-//}

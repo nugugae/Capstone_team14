@@ -20,5 +20,6 @@ public interface CapsuleRepository extends JpaRepository<Capsule, Long> {
     // JPA Query to find capsules by user ID and date
     @Query("SELECT c FROM Capsule c WHERE c.user.uid = :userId AND c.qnadate = :date")
     List<Capsule> findAllByUserIdAndDate(@Param("userId") Long userId, @Param("date") LocalDate date);
-
+    @Query("SELECT c.answer FROM Capsule c WHERE c.user.uid = :userId AND c.qnadate = :date")
+    List<String> findAnswersByUserIdAndDate(Long userId, LocalDate date);
 }
