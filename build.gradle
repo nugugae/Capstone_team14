@@ -1,20 +1,46 @@
-# 베이스 이미지 설정
-FROM openjdk:11-jdk-slim AS build
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.2'
+    id 'io.spring.dependency-management' version '1.1.0'
 
-# 작업 디렉토리 설정
-WORKDIR /workspace/app
+}
 
-# 프로젝트의 모든 파일을 작업 디렉토리로 복사
-COPY . .
+version '1.0'
+sourceCompatibility = '17'
 
-# Gradle 빌드 실행
-RUN ./gradlew clean build
+repositories {
+    mavenCentral()
+}
 
-# 새로운 베이스 이미지 설정
-FROM openjdk:11-jdk-slim
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-# 애플리케이션에 필요한 리소스를 복사
-COPY --from=build /workspace/app/build/libs/*.jar app.jar
 
-# 애플리케이션 실행
-ENTRYPOINT ["java","-jar","/app.jar"]
+
+    implementation 'mysql:mysql-connector-java'
+    //implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly 'org.webjars:bootstrap:4.5.0'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+}
+
+test {
+    useJUnitPlatform()
+}
